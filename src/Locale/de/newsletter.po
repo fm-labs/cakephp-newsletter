@@ -1,0 +1,210 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: CakePHP Newsletter Plugin\n"
+"POT-Creation-Date: 2016-02-17 21:46+0000\n"
+"PO-Revision-Date: 2016-02-17 22:47+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: Controller/NewsletterController.php:47
+msgid "You are already signed up for the newsletter!"
+msgstr "Ihre Email ist bereits für den Newsletter registriert!"
+
+#: Controller/NewsletterController.php:64
+msgid "Newsletter signup was successful!"
+msgstr "Die Newsletter-Anmeldung war erfolgreich!"
+
+#: Controller/NewsletterController.php:66
+msgid "Whoops, something went wrong. Please try again."
+msgstr "Ups, da ist etwas schief gegangen. Bitte nocheinmal probieren."
+
+#: Controller/Admin/NewsletterMembersController.php:57;82
+msgid "The {0} has been saved."
+msgstr ""
+
+#: Controller/Admin/NewsletterMembersController.php:57;60;82;85;104;106
+msgid "newsletter member"
+msgstr ""
+
+#: Controller/Admin/NewsletterMembersController.php:60;85
+msgid "The {0} could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/Admin/NewsletterMembersController.php:104
+msgid "The {0} has been deleted."
+msgstr ""
+
+#: Controller/Admin/NewsletterMembersController.php:106
+msgid "The {0} could not be deleted. Please, try again."
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/add.ctp:1;4
+#: Template/Admin/NewsletterMembers/edit.ctp:1;10
+#: Template/Admin/NewsletterMembers/index.ctp:1
+#: Template/Admin/NewsletterMembers/view.ctp:1;14
+msgid "Newsletter Readers"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/add.ctp:2
+#: Template/Admin/NewsletterMembers/index.ctp:3
+#: Template/Admin/NewsletterMembers/view.ctp:19
+msgid "New {0}"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/add.ctp:2;12
+#: Template/Admin/NewsletterMembers/edit.ctp:2;18
+#: Template/Admin/NewsletterMembers/index.ctp:3
+#: Template/Admin/NewsletterMembers/view.ctp:4;9;19
+msgid "Newsletter Reader"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/add.ctp:4
+#: Template/Admin/NewsletterMembers/edit.ctp:10
+#: Template/Admin/NewsletterMembers/view.ctp:14
+msgid "List {0}"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/add.ctp:12
+msgid "Add {0}"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/add.ctp:31
+#: Template/Admin/NewsletterMembers/edit.ctp:37
+#: Template/Newsletter/signup.ctp:27
+msgid "Submit"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/edit.ctp:2;18
+#: Template/Admin/NewsletterMembers/view.ctp:4
+msgid "Edit {0}"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/edit.ctp:4
+#: Template/Admin/NewsletterMembers/index.ctp:38
+msgid "Delete"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/edit.ctp:6
+#: Template/Admin/NewsletterMembers/index.ctp:40
+#: Template/Admin/NewsletterMembers/view.ctp:11
+msgid "Are you sure you want to delete # {0}?"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/index.ctp:14
+msgid "Actions"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/index.ctp:29
+msgid "View"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/index.ctp:33
+msgid "Edit"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:9
+msgid "Delete {0}"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:23
+msgid "More"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:33
+msgid "Label"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:34
+msgid "Value"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:40
+msgid "Email"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:44
+msgid "Email Format"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:48
+#: Template/Newsletter/signup.ctp:10
+msgid "Greeting"
+msgstr "Anrede"
+
+#: Template/Admin/NewsletterMembers/view.ctp:52
+#: Template/Newsletter/signup.ctp:13
+msgid "Title"
+msgstr "Titel"
+
+#: Template/Admin/NewsletterMembers/view.ctp:56
+msgid "Firstname"
+msgstr "Vorname"
+
+#: Template/Admin/NewsletterMembers/view.ctp:60
+msgid "Lastname"
+msgstr "Nachname"
+
+#: Template/Admin/NewsletterMembers/view.ctp:66
+msgid "Id"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:72
+msgid "Created"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:76
+msgid "Modified"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:80
+msgid "Canceled"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:85
+msgid "Is Email Verified"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:86;90
+msgid "Yes"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:86;90
+msgid "No"
+msgstr ""
+
+#: Template/Admin/NewsletterMembers/view.ctp:89
+msgid "Is Canceled"
+msgstr ""
+
+#: Template/Newsletter/signup.ctp:3
+msgid "Newsletter Signup Form"
+msgstr "Newsletter Anmeldung"
+
+#: Template/Newsletter/signup.ctp:9
+msgid "Mr."
+msgstr "Herr"
+
+#: Template/Newsletter/signup.ctp:9
+msgid "Ms."
+msgstr "Frau"
+
+#: Template/Newsletter/signup.ctp:9
+msgid "Company"
+msgstr "Firma"
+
+#: Template/Newsletter/signup.ctp:17
+msgid "First name"
+msgstr "Vorname"
+
+#: Template/Newsletter/signup.ctp:21
+msgid "Last name"
+msgstr "Nachname"
