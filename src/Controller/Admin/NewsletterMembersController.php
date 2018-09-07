@@ -66,6 +66,20 @@ class NewsletterMembersController extends AppController
         $this->Action->execute();
     }
 
+    public function add($id = null)
+    {
+        $this->set('emailFormats', $this->NewsletterMembers->listEmailFormats());
+        $this->set('statuses', $this->NewsletterMembers->listStatuses());
+        $this->Action->execute();
+    }
+
+    public function edit($id = null)
+    {
+        $this->set('emailFormats', $this->NewsletterMembers->listEmailFormats());
+        $this->set('statuses', $this->NewsletterMembers->listStatuses());
+        $this->Action->execute();
+    }
+
     /**
      * @param null $id
      */

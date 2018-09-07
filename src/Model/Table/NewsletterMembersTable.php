@@ -309,6 +309,24 @@ class NewsletterMembersTable extends Table
         return $member;
     }
 
+    public function listStatuses()
+    {
+        return [
+            self::STATUS_UNSUBSCRIBED => __('Unsubscribed'),
+            self::STATUS_SUBSCRIBED => __('Subscribed'),
+            self::STATUS_CLEANED => __('Cleaned'),
+            self::STATUS_PENDING => __('Pending')
+        ];
+    }
+
+    public function listEmailFormats()
+    {
+        return [
+            'html' => 'Html',
+            'text' => 'Text'
+        ];
+    }
+
     /**
      * @return \Mailchimp\Mailchimp\MailchimpApiClient
      */
