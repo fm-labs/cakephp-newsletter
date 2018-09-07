@@ -40,18 +40,18 @@ class NewsletterPlugin implements EventListenerInterface, PluginInterface, Backe
             'title' => 'Newsletter',
             'url' => ['plugin' => 'Newsletter', 'controller' => 'NewsletterMembers', 'action' => 'index'],
             'data-icon' => 'newspaper-o',
-            'children' => [
-                'newsletter_lists' => [
-                    'title' => 'Newsletter Lists',
-                    'url' => ['plugin' => 'Newsletter', 'controller' => 'NewsletterLists', 'action' => 'index'],
-                    'data-icon' => 'list',
-                ],
-                'newsletter_members' => [
-                    'title' => 'Newsletter Members',
-                    'url' => ['plugin' => 'Newsletter', 'controller' => 'NewsletterMembers', 'action' => 'index'],
-                    'data-icon' => 'users',
-                ]
-            ]
+//            'children' => [
+//                'newsletter_lists' => [
+//                    'title' => 'Newsletter Lists',
+//                    'url' => ['plugin' => 'Newsletter', 'controller' => 'NewsletterLists', 'action' => 'index'],
+//                    'data-icon' => 'list',
+//                ],
+//                'newsletter_members' => [
+//                    'title' => 'Newsletter Members',
+//                    'url' => ['plugin' => 'Newsletter', 'controller' => 'NewsletterMembers', 'action' => 'index'],
+//                    'data-icon' => 'users',
+//                ]
+//            ]
         ]);
     }
 
