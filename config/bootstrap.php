@@ -15,19 +15,19 @@ if (!Log::config('newsletter')) {
 }
 
 // Newsletter Email config
-if (!Email::config('newsletter_owner_notify')) {
-    Email::config('newsletter_owner_notify', [
-        'transport' => 'default',
-        //'from' => 'notify@localhost',
-        //'to' => '', // <-- INSERT OWNER EMAIL HERE
-        'subject' => 'Newsletter Notification'
-    ]);
-}
-
-if (!Email::config('newsletter_user_notify')) {
-    Email::config('newsletter_user_notify', [
-        'transport' => 'default',
-        //'from' => 'notify@localhost',
-        'subject' => 'Newsletter Notification'
-    ]);
-}
+//if (!Email::config('newsletter_owner_notify')) {
+//    Email::config('newsletter_owner_notify', [
+//        'transport' => 'default',
+//        //'from' => 'notify@localhost',
+//        //'to' => '', // <-- INSERT OWNER EMAIL HERE
+//        'subject' => 'Newsletter Notification'
+//    ]);
+//}
+//
+//if (!Email::config('newsletter_user_notify')) {
+//    Email::config('newsletter_user_notify', [
+//        'transport' => 'default',
+//        //'from' => 'notify@localhost',
+//        'subject' => 'Newsletter Notification'
+//    ]);
+//}

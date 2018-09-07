@@ -86,7 +86,7 @@ class MailchimpService implements EventListenerInterface
 
             // we can set optIn to FALSE here, because when we receive the "subscribe" event from mailchimp,
             // it is granted that the user already opted-in, if configured so in Mailchimp List settings
-            if (!$this->NewsletterLists->subscribeMember($list, $event->getEmail(), $data, ['optIn' => false])) {
+            if (!$this->NewsletterLists->subscribeMember($list, $event->getEmail(), $data, ['optIn' => false, 'events' => true])) {
                 throw new \RuntimeException("Subscribe failed");
             }
         } catch (\Exception $ex) {
@@ -104,7 +104,7 @@ class MailchimpService implements EventListenerInterface
 
             $list = $this->_findMailchimpList($event->getListId());
 
-            if (!$this->NewsletterLists->unsubscribeMember($list, $event->getEmail())) {
+            if (!$this->NewsletterLists->unsubscribeMember($list, $event->getEmail(), ['events' => true])) {
                 throw new \RuntimeException("Unsubscribe failed");
             }
         } catch (\Exception $ex) {
@@ -123,7 +123,7 @@ class MailchimpService implements EventListenerInterface
             $list = $this->_findMailchimpList($event->getListId());
             $data = $this->_extractMemberData($event->data());
 
-            if (!$this->NewsletterLists->updateMember($list, $event->getEmail(), $data)) {
+            if (!$this->NewsletterLists->updateMember($list, $event->getEmail(), $data, ['events' => true])) {
                 throw new \RuntimeException("Update profile failed");
             }
         } catch (\Exception $ex) {

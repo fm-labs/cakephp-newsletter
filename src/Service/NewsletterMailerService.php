@@ -7,6 +7,7 @@ use Cake\Event\EventListenerInterface;
 use Cake\Log\Log;
 use Newsletter\Mailer\NewsletterMailer;
 use Newsletter\Mailer\NewsletterOwnerMailer;
+use Newsletter\Model\Table\NewsletterMembersTable;
 
 /**
  * Class NewsletterMailerService
@@ -22,8 +23,8 @@ class NewsletterMailerService implements EventListenerInterface
     public function implementedEvents()
     {
         return [
-            'Newsletter.List.Member.beforeSubscribe' => 'beforeSubscribe',
-            'Newsletter.List.Member.afterSubscribe' => 'afterSubscribe'
+            'Newsletter.List.Member.afterSubscribe' => 'afterSubscribe',
+            'Newsletter.List.Member.afterUnsubscribe' => 'afterUnsubscribe'
         ];
     }
 
@@ -31,8 +32,22 @@ class NewsletterMailerService implements EventListenerInterface
      * @param Event $event
      * @return void
      */
-    public function beforeSubscribe(Event $event)
+    public function afterUnsubscribe(Event $event)
     {
+        $member = $event->data['member'];
+
+        $logMsg = "[newsletter] SIGNUP:" . $member->email . " - ";
+        Log::info(sprintf($logMsg . "%s|%s|%s",
+            $member->greeting, $member->last_name, $member->first_name), ['newsletter']);
+
+        // Email to member
+        try {
+            if ($member->status = NewsletterMembersTable::STATUS_UNSUBSCRIBED) {
+                (new NewsletterMailer())->send('memberUnsubscribe',[$member]);
+            }
+        } catch (\Exception $ex) {
+            Log::error('NewsletterMailerService::afterUnsubscribe: ' . $ex->getMessage(), ['newsletter']);
+        }
     }
 
     /**
@@ -41,24 +56,28 @@ class NewsletterMailerService implements EventListenerInterface
      */
     public function afterSubscribe(Event $event)
     {
-        $subscriber = $event->data['member'];
+        $member = $event->data['member'];
 
-        $logMsg = "[newsletter] SIGNUP:" . $subscriber->email . " - ";
+        $logMsg = "[newsletter] SIGNUP:" . $member->email . " - ";
         Log::info(sprintf($logMsg . "%s|%s|%s",
-            $subscriber->greeting, $subscriber->last_name, $subscriber->first_name), ['newsletter']);
+            $member->greeting, $member->last_name, $member->first_name), ['newsletter']);
 
-        // Email to subscriber
+        // Email to member
         try {
-            (new NewsletterMailer())->send('subscriptionConfirmation',[$subscriber]);
+            if ($member->status = NewsletterMembersTable::STATUS_SUBSCRIBED) {
+                (new NewsletterMailer())->send('memberSubscribe',[$member]);
+            } elseif ($member->status = NewsletterMembersTable::STATUS_PENDING) {
+                (new NewsletterMailer())->send('memberPending',[$member]);
+            }
         } catch (\Exception $ex) {
             Log::error('NewsletterMailerService::afterSubscribe: ' . $ex->getMessage(), ['newsletter']);
         }
 
         // Email to owner
-        try {
-            (new NewsletterOwnerMailer())->send('subscriptionNotify',[$subscriber]);
-        } catch (\Exception $ex) {
-            Log::error('NewsletterMailerService::afterSubscribe: ' . $ex->getMessage(), ['newsletter']);
-        }
+//        try {
+//            (new NewsletterOwnerMailer())->send('subscriptionNotify',[$member]);
+//        } catch (\Exception $ex) {
+//            Log::error('NewsletterMailerService::afterSubscribe: ' . $ex->getMessage(), ['newsletter']);
+//        }
     }
 }

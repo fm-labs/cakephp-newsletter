@@ -59,11 +59,11 @@ class NewsletterPlugin implements EventListenerInterface, PluginInterface, Backe
     {
         EventManager::instance()->on($this);
 
-        if (Configure::read('Newsletter.enableMailerService') == true) {
+        if (Configure::read('Newsletter.Mailer.enabled') == true) {
             EventManager::instance()->on(new NewsletterMailerService());
         }
 
-        if (Configure::read('Newsletter.enableMailchimpService') == true && Plugin::loaded('Mailchimp')) {
+        if (Configure::read('Newsletter.Mailchimp.enabled') == true && Plugin::loaded('Mailchimp')) {
             EventManager::instance()->on(new MailchimpService());
         }
     }

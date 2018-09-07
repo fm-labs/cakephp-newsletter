@@ -1,0 +1,1 @@
+<p>Your Newsletter subscription is pending</p>

@@ -1,0 +1,1 @@
+<p>You successfully unsubscribed from our newsletter</p>

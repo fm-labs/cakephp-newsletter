@@ -145,7 +145,7 @@ class NewsletterListsTable extends Table
      */
     public function subscribeMember(NewsletterList $list, $email, $data = [], array $options = [])
     {
-        $options += ['optIn' => false, 'events' => false];
+        $options += ['optIn' => null, 'events' => null];
         if ($options['events'] === true) {
             $options['events'] = ['before', 'after'];
         }
@@ -209,7 +209,7 @@ class NewsletterListsTable extends Table
      */
     public function unsubscribeMember(NewsletterList $list, $email, array $options = [])
     {
-        $options += ['optIn' => false, 'events' => false];
+        $options += ['events' => null];
         if ($options['events'] === true) {
             $options['events'] = ['before', 'after'];
         }
@@ -260,7 +260,7 @@ class NewsletterListsTable extends Table
      */
     public function updateMember(NewsletterList $list, $email, $data = [], array $options = [])
     {
-        $options += ['optIn' => false, 'events' => false];
+        $options += ['events' => null];
         if ($options['events'] === true) {
             $options['events'] = ['before', 'after'];
         }

@@ -6,7 +6,13 @@
  */
 return [
     'Newsletter' => [
-        'enableMailerService' => false,
-        'enableMailchimpService' => false,
+        'Mailer' => [
+            'enabled' => false,
+            'profile' => 'default'
+        ],
+
+        'Mailchimp' => [
+            'enabled' => false,
+        ]
     ]
 ];

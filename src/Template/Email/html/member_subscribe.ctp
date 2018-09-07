@@ -1,0 +1,1 @@
+<p>Your Newsletter subscription was successful</p>

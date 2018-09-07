@@ -3,6 +3,7 @@ namespace Newsletter\Controller\Admin;
 
 use Backend\Controller\BackendActionsTrait;
 use Cake\Event\Event;
+use Newsletter\Mailer\NewsletterMailer;
 use Newsletter\Mailer\NewsletterOwnerMailer;
 
 /**
@@ -32,6 +33,15 @@ class NewsletterMembersController extends AppController
         'edit'      => 'Backend.Edit',
         'delete'    => 'Backend.Delete'
     ];
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+
+        $this->Action->registerInline('sendEmail', ['scope' => ['form', 'table'], 'attrs' => ['data-icon' => 'envelope-o']]);
+    }
+
+
     /**
      * Index method
      *
@@ -59,26 +69,36 @@ class NewsletterMembersController extends AppController
     /**
      * @param null $id
      */
-    public function notifyOwner($id = null)
+    public function sendEmail($id = null)
     {
-        $NewsletterMember = $this->NewsletterMembers->get($id);
-        if ((new NewsletterOwnerMailer())->send('subscriptionNotify', [$NewsletterMember])) {
-            $this->Flash->success("Owner notification sent");
-        } else {
-            $this->Flash->error("Operation failed");
+        $mailerActions = [
+            'memberSubscribe' => 'Member Subscribe',
+            'memberUnsubscribe' => 'Member Unsubscribe',
+            'memberPending' => 'Member Pending',
+        ];
+        $member = $this->NewsletterMembers->get($id);
+        if ($this->request->is(['post'])) {
+            if ((new NewsletterMailer())->send($this->request->data('mailer_action'), [$member])) {
+                $this->Flash->success("Email sent");
+            } else {
+                $this->Flash->error("Operation failed");
+            }
+            //$this->redirect($this->referer(['action' => 'index']));
         }
-        $this->redirect($this->referer(['action' => 'index']));
+
+
+        $this->set(compact('member', 'mailerActions'));
     }
 
     /**
      * @return array
      */
-    public function implementedEvents()
-    {
-        return [
-            'Backend.Action.Index.getRowActions' => function(Event $event) {
-                $event->result[] = [__('Notify Owner'), ['action' => 'notifyOwner', ':id']];
-            }
-        ];
-    }
+//    public function implementedEvents()
+//    {
+//        return [
+//            'Backend.Action.Index.getRowActions' => function(Event $event) {
+//                $event->result[] = [__('Notify Owner'), ['action' => 'notifyOwner', ':id']];
+//            }
+//        ];
+//    }
 }
