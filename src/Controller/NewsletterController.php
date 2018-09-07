@@ -2,6 +2,7 @@
 
 namespace Newsletter\Controller;
 
+use Cake\Core\Configure;
 use Cake\Event\Event;
 use Newsletter\Form\NewsletterSubscribeForm;
 use Newsletter\Form\NewsletterUnsubscribeForm;
@@ -23,6 +24,8 @@ class NewsletterController extends AppController
         if ($this->components()->has('Auth')) {
             $this->Auth->allow(['subscribe', 'unsubscribe']);
         }
+
+        $this->viewBuilder()->layout(Configure::read('Newsletter.layout'));
     }
 
     public function subscribe()
@@ -32,7 +35,7 @@ class NewsletterController extends AppController
             if ($form->execute($this->request->data())) {
                 $this->Flash->success(__d('newsletter', 'Newsletter signup was successful!'));
             } else {
-                $this->Flash->error(__d('newsletter', 'Something went wrong. Please try again.'));
+                $this->Flash->error(__d('newsletter', 'Please fill all required fields'));
             }
         }
         $this->set('form', $form);
@@ -45,7 +48,7 @@ class NewsletterController extends AppController
             if ($form->execute($this->request->data())) {
                 $this->Flash->success(__d('newsletter', 'Unsubscribe was successful!'));
             } else {
-                $this->Flash->error(__d('newsletter', 'Something went wrong. Please try again.'));
+                $this->Flash->error(__d('newsletter', 'Please fill all required fields'));
             }
         }
         $this->set('form', $form);
