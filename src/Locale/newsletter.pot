@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-02-17 21:46+0000\n"
+"POT-Creation-Date: 2018-09-07 19:56+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,197 +14,104 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Controller/NewsletterController.php:47
-msgid "You are already signed up for the newsletter!"
-msgstr ""
-
-#: Controller/NewsletterController.php:64
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Controller/NewsletterController.php:39
 msgid "Newsletter signup was successful!"
 msgstr ""
 
-#: Controller/NewsletterController.php:66
-msgid "Whoops, something went wrong. Please try again."
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Controller/NewsletterController.php:42;61
+msgid "Please fill all required fields"
 msgstr ""
 
-#: Controller/Admin/NewsletterMembersController.php:57;82
-msgid "The {0} has been saved."
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Controller/NewsletterController.php:58
+msgid "Unsubscribe was successful!"
 msgstr ""
 
-#: Controller/Admin/NewsletterMembersController.php:57;60;82;85;104;106
-msgid "newsletter member"
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Controller/Admin/NewsletterListsController.php:95
+msgid "Mailchimp Hello"
 msgstr ""
 
-#: Controller/Admin/NewsletterMembersController.php:60;85
-msgid "The {0} could not be saved. Please, try again."
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Mailer/NewsletterMailer.php:48
+msgid "Please confirm your newsletter subscription"
 msgstr ""
 
-#: Controller/Admin/NewsletterMembersController.php:104
-msgid "The {0} has been deleted."
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Mailer/NewsletterMailer.php:63
+msgid "Your newsletter subscription was successful"
 msgstr ""
 
-#: Controller/Admin/NewsletterMembersController.php:106
-msgid "The {0} could not be deleted. Please, try again."
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Mailer/NewsletterMailer.php:78
+msgid "Unsubscribe confirmation"
 msgstr ""
 
-#: Template/Admin/NewsletterMembers/add.ctp:1;4
-#: Template/Admin/NewsletterMembers/edit.ctp:1;10
-#: Template/Admin/NewsletterMembers/index.ctp:1
-#: Template/Admin/NewsletterMembers/view.ctp:1;14
-msgid "Newsletter Readers"
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Model/Entity/NewsletterMember.php:78;82
+msgid "[UNKNOWN]"
 msgstr ""
 
-#: Template/Admin/NewsletterMembers/add.ctp:2
-#: Template/Admin/NewsletterMembers/index.ctp:3
-#: Template/Admin/NewsletterMembers/view.ctp:19
-msgid "New {0}"
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Model/Table/NewsletterMembersTable.php:66;67
+msgid "Provide a valid email address"
 msgstr ""
 
-#: Template/Admin/NewsletterMembers/add.ctp:2;12
-#: Template/Admin/NewsletterMembers/edit.ctp:2;18
-#: Template/Admin/NewsletterMembers/index.ctp:3
-#: Template/Admin/NewsletterMembers/view.ctp:4;9;19
-msgid "Newsletter Reader"
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Model/Table/NewsletterMembersTable.php:318
+msgid "Unsubscribed"
 msgstr ""
 
-#: Template/Admin/NewsletterMembers/add.ctp:4
-#: Template/Admin/NewsletterMembers/edit.ctp:10
-#: Template/Admin/NewsletterMembers/view.ctp:14
-msgid "List {0}"
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Model/Table/NewsletterMembersTable.php:319
+msgid "Subscribed"
 msgstr ""
 
-#: Template/Admin/NewsletterMembers/add.ctp:12
-msgid "Add {0}"
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Model/Table/NewsletterMembersTable.php:320
+msgid "Cleaned"
 msgstr ""
 
-#: Template/Admin/NewsletterMembers/add.ctp:31
-#: Template/Admin/NewsletterMembers/edit.ctp:37
-#: Template/Newsletter/signup.ctp:27
-msgid "Submit"
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Model/Table/NewsletterMembersTable.php:321
+msgid "Pending"
 msgstr ""
 
-#: Template/Admin/NewsletterMembers/edit.ctp:2;18
-#: Template/Admin/NewsletterMembers/view.ctp:4
-msgid "Edit {0}"
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Admin/NewsletterMembers/send_email.ctp:4
+msgid "Send Email"
 msgstr ""
 
-#: Template/Admin/NewsletterMembers/edit.ctp:4
-#: Template/Admin/NewsletterMembers/index.ctp:38
-msgid "Delete"
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Cell/NewsletterMembersBackendPanel/display.ctp:20
+msgid "View all newsletter signups"
 msgstr ""
 
-#: Template/Admin/NewsletterMembers/edit.ctp:6
-#: Template/Admin/NewsletterMembers/index.ctp:40
-#: Template/Admin/NewsletterMembers/view.ctp:11
-msgid "Are you sure you want to delete # {0}?"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/index.ctp:14
-msgid "Actions"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/index.ctp:29
-msgid "View"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/index.ctp:33
-msgid "Edit"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:9
-msgid "Delete {0}"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:23
-msgid "More"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:33
-msgid "Label"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:34
-msgid "Value"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:40
-msgid "Email"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:44
-msgid "Email Format"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:48
-#: Template/Newsletter/signup.ctp:10
-msgid "Greeting"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:52
-#: Template/Newsletter/signup.ctp:13
-msgid "Title"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:56
-msgid "Firstname"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:60
-msgid "Lastname"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:66
-msgid "Id"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:72
-msgid "Created"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:76
-msgid "Modified"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:80
-msgid "Canceled"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:85
-msgid "Is Email Verified"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:86;90
-msgid "Yes"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:86;90
-msgid "No"
-msgstr ""
-
-#: Template/Admin/NewsletterMembers/view.ctp:89
-msgid "Is Canceled"
-msgstr ""
-
-#: Template/Newsletter/signup.ctp:3
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Newsletter/subscribe.ctp:3
 msgid "Newsletter Signup Form"
 msgstr ""
 
-#: Template/Newsletter/signup.ctp:9
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Newsletter/subscribe.ctp:8
 msgid "Mr."
 msgstr ""
 
-#: Template/Newsletter/signup.ctp:9
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Newsletter/subscribe.ctp:8
 msgid "Ms."
 msgstr ""
 
-#: Template/Newsletter/signup.ctp:9
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Newsletter/subscribe.ctp:8
 msgid "Company"
 msgstr ""
 
-#: Template/Newsletter/signup.ctp:17
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Newsletter/subscribe.ctp:9
+msgid "Greeting"
+msgstr ""
+
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Newsletter/subscribe.ctp:12
+msgid "Title"
+msgstr ""
+
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Newsletter/subscribe.ctp:16
 msgid "First name"
 msgstr ""
 
-#: Template/Newsletter/signup.ctp:21
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Newsletter/subscribe.ctp:20
 msgid "Last name"
+msgstr ""
+
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Newsletter/subscribe.ctp:26
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Newsletter/unsubscribe.ctp:10
+msgid "Submit"
+msgstr ""
+
+#: /home/low/workspaces/cakesites/cakephp-newsletter/src/Template/Newsletter/unsubscribe.ctp:3
+msgid "Unsubscribe Newsletter"
 msgstr ""
 

@@ -63,8 +63,8 @@ class NewsletterMembersTable extends Table
         //    ->notEmpty('newsletter_list_id');
 
         $validator
-            ->add('email', 'email_check', ['rule' => ['email', true], 'message' => __('Provide a valid email address'), 'on' => 'create'])
-            ->add('email', 'email_nocheck', ['rule' => ['email', false], 'message' => __('Provide a valid email address'), 'on' => 'update'])
+            ->add('email', 'email_check', ['rule' => ['email', true], 'message' => __d('newsletter', 'Provide a valid email address'), 'on' => 'create'])
+            ->add('email', 'email_nocheck', ['rule' => ['email', false], 'message' => __d('newsletter', 'Provide a valid email address'), 'on' => 'update'])
             ->requirePresence('email', 'create')
             ->notEmpty('email');
 
@@ -315,10 +315,10 @@ class NewsletterMembersTable extends Table
     public function listStatuses()
     {
         return [
-            self::STATUS_UNSUBSCRIBED => __('Unsubscribed'),
-            self::STATUS_SUBSCRIBED => __('Subscribed'),
-            self::STATUS_CLEANED => __('Cleaned'),
-            self::STATUS_PENDING => __('Pending')
+            self::STATUS_UNSUBSCRIBED => __d('newsletter', 'Unsubscribed'),
+            self::STATUS_SUBSCRIBED => __d('newsletter', 'Subscribed'),
+            self::STATUS_CLEANED => __d('newsletter', 'Cleaned'),
+            self::STATUS_PENDING => __d('newsletter', 'Pending')
         ];
     }
 

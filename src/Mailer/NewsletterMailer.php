@@ -45,7 +45,7 @@ class NewsletterMailer extends Mailer
     {
         $this
             ->to($member->email)
-            ->subject(__("Please confirm your newsletter subscription"))
+            ->subject(__d('newsletter', "Please confirm your newsletter subscription"))
             ->template('Newsletter.member_pending')
             ->profile(__FUNCTION__);
 
@@ -60,7 +60,7 @@ class NewsletterMailer extends Mailer
     {
         $this
             ->to($member->email)
-            ->subject(__("Your newsletter subscription was successful"))
+            ->subject(__d('newsletter', "Your newsletter subscription was successful"))
             ->template('Newsletter.member_subscribe')
             ->profile(__FUNCTION__);
 
@@ -75,7 +75,7 @@ class NewsletterMailer extends Mailer
     {
         $this
             ->to($member->email)
-            ->subject(__("Unsubscribe confirmation"))
+            ->subject(__d('newsletter', "Unsubscribe confirmation"))
             ->template('Newsletter.member_unsubscribe')
             ->profile(__FUNCTION__);
 

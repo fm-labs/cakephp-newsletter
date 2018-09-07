@@ -92,7 +92,7 @@ class NewsletterListsController extends AppController
     {
         $events = parent::implementedEvents();
         $events['Backend.Action.Index.getRowActions'] = function(Event $event) {
-            $event->result[] = [__('Mailchimp Hello'), ['action' => 'mailchimpHello', ':id']];
+            $event->result[] = [__d('newsletter', 'Mailchimp Hello'), ['action' => 'mailchimpHello', ':id']];
         };
         return $events;
     }

@@ -111,7 +111,7 @@ class NewsletterMembersController extends AppController
 //    {
 //        return [
 //            'Backend.Action.Index.getRowActions' => function(Event $event) {
-//                $event->result[] = [__('Notify Owner'), ['action' => 'notifyOwner', ':id']];
+//                $event->result[] = [__d('newsletter', 'Notify Owner'), ['action' => 'notifyOwner', ':id']];
 //            }
 //        ];
 //    }

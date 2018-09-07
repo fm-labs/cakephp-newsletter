@@ -17,7 +17,7 @@
     ]]);
     ?>
     <div class="panel-footer">
-        <?= $this->Html->link(__('View all newsletter signups'),
+        <?= $this->Html->link(__d('newsletter', 'View all newsletter signups'),
             ['plugin' => 'Newsletter', 'controller' => 'NewsletterMembers', 'action' => 'index'],
             ['class' => 'btn btn-default link-frame']); ?>
     </div>
