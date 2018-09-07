@@ -8,6 +8,9 @@ use Cake\Mailer\Email;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
+/**
+ * @deprecated Use NewsletterSubscribeForm
+ */
 class NewsletterSignupForm extends Form
 {
 

@@ -3,13 +3,12 @@
 namespace Newsletter\Controller;
 
 use Cake\Event\Event;
-use Newsletter\Model\Table\NewsletterMembersTable;
 
 /**
  * Class NewsletterController
  * @package Newsletter\Controller
  *
- * @property NewsletterMembersTable $NewsletterMembers
+ * @property \Newsletter\Model\Table\NewsletterMembersTable $NewsletterMembers
  */
 class NewsletterController extends AppController
 {
@@ -27,10 +26,9 @@ class NewsletterController extends AppController
     public function subscribe()
     {
         $member = $this->NewsletterMembers->newEntity();
-
         if ($this->request->is(['post', 'put'])) {
             $email = $this->request->data('email');
-            $member = $this->NewsletterMembers->subscribe($email, $this->request->data);
+            $member = $this->NewsletterMembers->subscribeMember($email, $this->request->data, ['events' => true, 'source' => 'form']);
             if ($member && !$member->errors() && $member->id) {
                 $this->Flash->success(__d('newsletter', 'Newsletter signup was successful!'));
             } else {
@@ -43,12 +41,10 @@ class NewsletterController extends AppController
     public function unsubscribe()
     {
         $member = $this->NewsletterMembers->newEntity();
-
         if ($this->request->is(['post', 'put'])) {
             $email = $this->request->data('email');
-            $member = $this->NewsletterMembers->unsubscribe($email);
-            if ($member && !$member->errors()) {
-                $this->Flash->success(__d('newsletter', 'Newsletter signup was successful!'));
+            if ($this->NewsletterMembers->unsubscribeMember($email, ['events' => true, 'source' => 'form'])) {
+                $this->Flash->success(__d('newsletter', 'Unsubscribe was successful!'));
             } else {
                 $this->Flash->error(__d('newsletter', 'Something went wrong. Please try again.'));
             }

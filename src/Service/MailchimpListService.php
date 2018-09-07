@@ -13,21 +13,23 @@ use Mailchimp\Event\MailchimpWebhookEvent;
  * Class MailchimpService
  *
  * @package Newsletter\Event
+ *
+ * @deprecated Use MailchimpService instead
  */
-class MailchimpService implements EventListenerInterface
+class MailchimpListService implements EventListenerInterface
 {
 
     /**
-     * @var \Newsletter\Model\Table\NewsletterMembersTable
+     * @var \Newsletter\Model\Table\NewsletterListsTable
      */
-    public $NewsletterMembers;
+    public $NewsletterLists;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->NewsletterMembers = TableRegistry::get('Newsletter.NewsletterMembers');
+        $this->NewsletterLists = TableRegistry::get('Newsletter.NewsletterLists');
     }
 
     /**
@@ -36,8 +38,8 @@ class MailchimpService implements EventListenerInterface
     public function implementedEvents()
     {
         return [
-            'Newsletter.Model.Member.afterSubscribe' => 'afterSubscribe',
-            'Newsletter.Model.Member.afterUnsubscribe' => 'afterUnsubscribe',
+            'Newsletter.List.Member.beforeSubscribe' => 'beforeSubscribe',
+            'Newsletter.List.Member.afterSubscribe' => 'afterSubscribe',
 
             'Mailchimp.Webhook.event' => 'mailchimpEvent',
             'Mailchimp.Webhook.subscribe' => 'mailchimpSubscribe',
@@ -53,40 +55,16 @@ class MailchimpService implements EventListenerInterface
      * @param Event $event
      * @return void
      */
-    public function afterSubscribe(Event $event)
+    public function beforeSubscribe(Event $event)
     {
-        if (isset($event->data['options']['source']) && $event->data['options']['source'] == 'mailchimp') {
-            return;
-        }
-
-        try {
-            Log::info("MailchimpService: LocalEvent: " . $event->name(), ['newsletter']);
-            $this->NewsletterMembers->mailchimp()
-                ->subscribeMember($event->data['member']['email']);
-
-        } catch (\Exception $ex) {
-            Log::info("MailchimpService: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
-        }
     }
 
     /**
      * @param Event $event
      * @return void
      */
-    public function afterUnsubscribe(Event $event)
+    public function afterSubscribe(Event $event)
     {
-        if (isset($event->data['options']['source']) && $event->data['options']['source'] == 'mailchimp') {
-            return;
-        }
-
-        try {
-            Log::info("MailchimpService: LocalEvent: " . $event->name(), ['newsletter']);
-            $this->NewsletterMembers->mailchimp()
-                ->unsubscribeMember($event->data['member']['email']);
-
-        } catch (\Exception $ex) {
-            Log::info("MailchimpService: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
-        }
     }
 
     /**
@@ -94,7 +72,7 @@ class MailchimpService implements EventListenerInterface
      */
     public function mailchimpEvent(MailchimpWebhookEvent $event)
     {
-        Log::info("MailchimpService: Event: " . $event->name(), ['newsletter']);
+        Log::info("Mailchimp: Event: " . $event->name(), ['newsletter']);
     }
 
     /**
@@ -103,18 +81,19 @@ class MailchimpService implements EventListenerInterface
     public function mailchimpSubscribe(MailchimpWebhookEvent $event)
     {
         try {
-            Log::info("MailchimpService: Subscribe: " . $event->getListId() . ":" . $event->getEmail(), ['newsletter']);
+            Log::info("Mailchimp: Subscriber: " . $event->getListId() . ":" . $event->getEmail(), ['newsletter']);
 
+            $list = $this->_findMailchimpList($event->getListId());
             $data = $this->_extractMemberData($event->data());
 
             // we can set optIn to FALSE here, because when we receive the "subscribe" event from mailchimp,
             // it is granted that the user already opted-in, if configured so in Mailchimp List settings
             $options = [ 'optIn' => false, 'events' => true, 'source' => 'mailchimp' ];
-            if (!$this->NewsletterMembers->subscribeMember($event->getEmail(), $data, $options)) {
+            if (!$this->NewsletterLists->subscribeMember($list, $event->getEmail(), $data, $options)) {
                 throw new \RuntimeException("Subscribe failed");
             }
         } catch (\Exception $ex) {
-            Log::info("MailchimpService: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
+            Log::info("Mailchimp: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
         }
     }
 
@@ -124,14 +103,16 @@ class MailchimpService implements EventListenerInterface
     public function mailchimpUnsubscribe(MailchimpWebhookEvent $event)
     {
         try {
-            Log::info("MailchimpService: Unsubscribe: " . $event->getListId() . ":" . $event->getEmail(), ['newsletter']);
+            Log::info("Mailchimp: Unsubscribe: " . $event->getListId() . ":" . $event->getEmail(), ['newsletter']);
+
+            $list = $this->_findMailchimpList($event->getListId());
 
             $options = [ 'events' => true, 'source' => 'mailchimp' ];
-            if (!$this->NewsletterMembers->unsubscribeMember($event->getEmail(), $options)) {
+            if (!$this->NewsletterLists->unsubscribeMember($list, $event->getEmail(), $options)) {
                 throw new \RuntimeException("Unsubscribe failed");
             }
         } catch (\Exception $ex) {
-            Log::info("MailchimpService: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
+            Log::info("Mailchimp: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
         }
     }
 
@@ -141,16 +122,17 @@ class MailchimpService implements EventListenerInterface
     public function mailchimpProfile(MailchimpWebhookEvent $event)
     {
         try {
-            Log::info("MailchimpService: ProfileUpdate: " . $event->getListId() . ":" . $event->getEmail(), ['newsletter']);
+            Log::info("Mailchimp: ProfileUpdate: " . $event->getListId() . ":" . $event->getEmail(), ['newsletter']);
 
+            $list = $this->_findMailchimpList($event->getListId());
             $data = $this->_extractMemberData($event->data());
 
             $options = [ 'events' => true, 'source' => 'mailchimp' ];
-            if (!$this->NewsletterMembers->updateMember($event->getEmail(), $data, $options)) {
+            if (!$this->NewsletterLists->updateMember($list, $event->getEmail(), $data, $options)) {
                 throw new \RuntimeException("Update profile failed");
             }
         } catch (\Exception $ex) {
-            Log::info("MailchimpService: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
+            Log::info("Mailchimp: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
         }
     }
 
@@ -159,7 +141,7 @@ class MailchimpService implements EventListenerInterface
      */
     public function mailchimpChangeEmail(MailchimpWebhookEvent $event)
     {
-        Log::warning("MailchimpService: [NOTIMPLEMENTED] EmailChange: " . $event->getListId() . ":" . $event->getEmail(), ['newsletter']);
+        Log::warning("Mailchimp: [NOTIMPLEMENTED] EmailChange: " . $event->getListId() . ":" . $event->getEmail(), ['newsletter']);
     }
 
     /**
@@ -167,7 +149,7 @@ class MailchimpService implements EventListenerInterface
      */
     public function mailchimpCleaned(MailchimpWebhookEvent $event)
     {
-        Log::warning("MailchimpService: [NOTIMPLEMENTED]  Cleaned: " . $event->getListId() . ":" . $event->getEmail(), ['newsletter']);
+        Log::warning("Mailchimp: [NOTIMPLEMENTED]  Cleaned: " . $event->getListId() . ":" . $event->getEmail(), ['newsletter']);
     }
 
     /**
@@ -175,7 +157,21 @@ class MailchimpService implements EventListenerInterface
      */
     public function mailchimpCampaign(MailchimpWebhookEvent $event)
     {
-        Log::warning("MailchimpService: [NOTIMPLEMENTED]  Campain: " . $event->getListId(), ['newsletter']);
+        Log::warning("Mailchimp: [NOTIMPLEMENTED]  Campain: " . $event->getListId(), ['newsletter']);
+    }
+
+    /**
+     * Find mailchimp list by mailchimp list ID
+     *
+     * @param string $mailchimpListId
+     * @return \Newsletter\Model\Entity\NewsletterList
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException
+     */
+    protected function _findMailchimpList($mailchimpListId)
+    {
+        return $this->NewsletterLists
+            ->findByMailchimpListId($mailchimpListId)
+            ->firstOrFail();
     }
 
     /**

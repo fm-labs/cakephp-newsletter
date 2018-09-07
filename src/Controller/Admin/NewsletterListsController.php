@@ -58,8 +58,8 @@ class NewsletterListsController extends AppController
      */
     public function view($id = null)
     {
-        $this->set('related', ['NewsletterMembers' => []]);
-        $this->set('entityOptions', ['contain' => ['NewsletterMembers']]);
+        //$this->set('related', ['NewsletterMembers' => []]);
+        //$this->set('entityOptions', ['contain' => ['NewsletterMembers']]);
         $this->Action->execute();
     }
 

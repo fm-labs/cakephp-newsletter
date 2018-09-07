@@ -3,6 +3,7 @@ namespace Newsletter\Model\Table;
 
 use Cake\Event\Event;
 use Cake\Log\Log;
+use Cake\Network\Exception\NotFoundException;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -40,10 +41,10 @@ class NewsletterListsTable extends Table
         $this->displayField('title');
         $this->primaryKey('id');
 
-        $this->hasMany('NewsletterMembers', [
-            'foreignKey' => 'newsletter_list_id',
-            'className' => 'Newsletter.NewsletterMembers'
-        ]);
+//        $this->hasMany('NewsletterMembers', [
+//            'foreignKey' => 'newsletter_list_id',
+//            'className' => 'Newsletter.NewsletterMembers'
+//        ]);
     }
 
     /**
@@ -116,190 +117,200 @@ class NewsletterListsTable extends Table
         return $this->findByMailchimpListId($mailchimpListId)->first();
     }
 
-    /**
-     * Get first member of given list by email address
-     *
-     * @param NewsletterList $list
-     * @param $email
-     * @param array $options
-     * @return null|\Newsletter\Model\Entity\NewsletterMember
-     */
-    public function getListMemberByEmail(NewsletterList $list, $email, array $options = [])
-    {
-        return $this->NewsletterMembers->find('all', $options)
-            ->where([
-                'newsletter_list_id' => $list->id,
-                'email' => $email
-            ])
-            ->first();
-    }
-
-    /**
-     * Subscribe to list with email address
-     *
-     * @param NewsletterList $list
-     * @param $email
-     * @param array $data
-     * @param array $options
-     * @return bool|\Newsletter\Model\Entity\NewsletterMember
-     */
-    public function subscribeMember(NewsletterList $list, $email, $data = [], array $options = [])
-    {
-        $options += ['optIn' => null, 'events' => null];
-        if ($options['events'] === true) {
-            $options['events'] = ['before', 'after'];
-        }
-
-        $member = $this->getListMemberByEmail($list, $email);
-        if (!$member) {
-            $member = $this->NewsletterMembers->newEntity([
-                'email' => $email,
-                'newsletter_list_id' => $list->id
-            ]);
-        }
-
-        if (!empty($data)) {
-            $member = $this->NewsletterMembers->patchEntity($member, $data);
-        }
-
-        // Dispatch 'beforeSubscribe' event
-        if ($options['events'] && in_array('before', $options['events'])) {
-            $event = new Event('Newsletter.List.Member.beforeSubscribe', $this, [
-                'list' => $list,
-                'member' => $member,
-                'data' => $data,
-                'options' => $options
-            ]);
-            $this->eventManager()->dispatch($event);
-        }
-
-        // Update entity
-        if ($options['optIn'] === true && $member->email_verified == false) {
-            $member->status = NewsletterMembersTable::STATUS_PENDING;
-        } else {
-            $member->status = NewsletterMembersTable::STATUS_SUBSCRIBED;
-            $member->email_verified = true;
-        }
-
-        if (!($member = $this->NewsletterMembers->save($member))) {
-            return false;
-        }
-
-        // Dispatch 'afterSubscribe' event
-        if ($options['events'] && in_array('after', $options['events'])) {
-            $event = new Event('Newsletter.List.Member.afterSubscribe', $this, [
-                'list' => $list,
-                'member' => $member,
-                'data' => $data,
-                'options' => $options
-            ]);
-            $this->eventManager()->dispatch($event);
-        }
-
-        return $member;
-    }
-
-    /**
-     * Unsubscribe from list with email address
-     *
-     * @param NewsletterList $list
-     * @param $email
-     * @param array $options
-     * @return bool|\Newsletter\Model\Entity\NewsletterMember
-     */
-    public function unsubscribeMember(NewsletterList $list, $email, array $options = [])
-    {
-        $options += ['events' => null];
-        if ($options['events'] === true) {
-            $options['events'] = ['before', 'after'];
-        }
-
-        $member = $this->getListMemberByEmail($list, $email);
-        if (!$member) {
-            return true;
-        }
-
-        // Dispatch 'beforeSubscribe' event
-        if ($options['events'] && in_array('before', $options['events'])) {
-            $event = new Event('Newsletter.List.Member.beforeUnsubscribe', $this, [
-                'list' => $list,
-                'member' => $member,
-                'options' => $options
-            ]);
-            $this->eventManager()->dispatch($event);
-        }
-
-        // Update entity
-        $member->status = NewsletterMembersTable::STATUS_UNSUBSCRIBED;
-
-        if (!($member = $this->NewsletterMembers->save($member))) {
-            return false;
-        }
-
-        // Dispatch 'afterUnsubscribe' event
-        if ($options['events'] && in_array('after', $options['events'])) {
-            $event = new Event('Newsletter.List.Member.afterUnsubscribe', $this, [
-                'list' => $list,
-                'member' => $member,
-                'options' => $options
-            ]);
-            $this->eventManager()->dispatch($event);
-        }
-
-        return $member;
-    }
-
-    /**
-     * Update list member data by email
-     *
-     * @param NewsletterList $list
-     * @param $email
-     * @param array $data
-     * @param array $options
-     * @return bool|\Newsletter\Model\Entity\NewsletterMember
-     */
-    public function updateMember(NewsletterList $list, $email, $data = [], array $options = [])
-    {
-        $options += ['events' => null];
-        if ($options['events'] === true) {
-            $options['events'] = ['before', 'after'];
-        }
-
-        $member = $this->getListMemberByEmail($list, $email);
-        if (!$member) {
-            return $this->subscribeMember($list, $email, $data, $options);
-        }
-
-        //@TODO Set allowed fields
-        //$member->accessible([], false);
-        $member = $this->NewsletterMembers->patchEntity($member, $data);
-
-        // Dispatch 'beforeUpdate' event
-        if ($options['events'] && in_array('before', $options['events'])) {
-            $event = new Event('Newsletter.List.Member.beforeUpdate', $this, [
-                'list' => $list,
-                'member' => $member,
-                'data' => $data,
-                'options' => $options
-            ]);
-            $this->eventManager()->dispatch($event);
-        }
-
-        if (!($member = $this->NewsletterMembers->save($member))) {
-            return false;
-        }
-
-        // Dispatch 'afterUpdate' event
-        if ($options['events'] && in_array('after', $options['events'])) {
-            $event = new Event('Newsletter.List.Member.afterUpdate', $this, [
-                'list' => $list,
-                'member' => $member,
-                'data' => $data,
-                'options' => $options
-            ]);
-            $this->eventManager()->dispatch($event);
-        }
-
-        return $member;
-    }
+//    /**
+//     * Get first member of given list by email address
+//     *
+//     * @param NewsletterList $list
+//     * @param $email
+//     * @param array $options
+//     * @return null|\Newsletter\Model\Entity\NewsletterMember
+//     */
+//    public function getListMemberByEmail(NewsletterList $list, $email, array $options = [])
+//    {
+//        return $this->NewsletterMembers->find('all', $options)
+//            ->where([
+//                'newsletter_list_id' => $list->id,
+//                'email' => $email
+//            ])
+//            ->first();
+//    }
+//
+//    /**
+//     * Subscribe to list with email address
+//     *
+//     * @param NewsletterList $list
+//     * @param $email
+//     * @param array $data
+//     * @param array $options
+//     * @return bool|\Newsletter\Model\Entity\NewsletterMember
+//     */
+//    public function subscribeMember(NewsletterList $list, $email, $data = [], array $options = [])
+//    {
+//        $member = $this->getListMemberByEmail($list, $email);
+//        if ($member && $member->status == NewsletterMembersTable::STATUS_SUBSCRIBED) {
+//            return $this->updateMember($list, $email, $data, $options);
+//        }
+//
+//        $options += ['optIn' => null, 'events' => null];
+//        if ($options['events'] === true) {
+//            $options['events'] = ['before', 'after'];
+//        }
+//
+//        $isNew = false;
+//        if (!$member) {
+//            $member = $this->NewsletterMembers->newEntity([
+//                'email' => $email,
+//                'newsletter_list_id' => $list->id,
+//                'email_verified' => !$options['optIn']
+//            ]);
+//            $isNew = true;
+//        }
+//
+//        if (!empty($data)) {
+//            $member = $this->NewsletterMembers->patchEntity($member, $data);
+//        }
+//
+//        // Dispatch 'beforeSubscribe' event
+//        if ($options['events'] && in_array('before', $options['events'])) {
+//            $event = new Event('Newsletter.List.Member.beforeSubscribe', $this, [
+//                'new' => $isNew,
+//                'list' => $list,
+//                'member' => $member,
+//                'data' => $data,
+//                'options' => $options
+//            ]);
+//            $this->eventManager()->dispatch($event);
+//        }
+//
+//        // Update entity
+//        if ($options['optIn'] == true && $member->email_verified == false) {
+//            $member->status = NewsletterMembersTable::STATUS_PENDING;
+//        } else {
+//            $member->status = NewsletterMembersTable::STATUS_SUBSCRIBED;
+//            $member->email_verified = true;
+//        }
+//
+//        if (!$this->NewsletterMembers->save($member)) {
+//            return $member;
+//        }
+//
+//        // Dispatch 'afterSubscribe' event
+//        if ($options['events'] && in_array('after', $options['events'])) {
+//            $event = new Event('Newsletter.List.Member.afterSubscribe', $this, [
+//                'new' => $isNew,
+//                'list' => $list,
+//                'member' => $member,
+//                'data' => $data,
+//                'options' => $options
+//            ]);
+//            $this->eventManager()->dispatch($event);
+//        }
+//
+//        return $member;
+//    }
+//
+//    /**
+//     * Unsubscribe from list with email address
+//     *
+//     * @param NewsletterList $list
+//     * @param $email
+//     * @param array $options
+//     * @return bool|\Newsletter\Model\Entity\NewsletterMember
+//     */
+//    public function unsubscribeMember(NewsletterList $list, $email, array $options = [])
+//    {
+//        $options += ['events' => null];
+//        if ($options['events'] === true) {
+//            $options['events'] = ['before', 'after'];
+//        }
+//
+//        $member = $this->getListMemberByEmail($list, $email);
+//        if (!$member || $member->status == NewsletterMembersTable::STATUS_UNSUBSCRIBED || $member->status == NewsletterMembersTable::STATUS_CLEANED) {
+//            //throw new NotFoundException("Unknown subscriber email: $email");
+//            return true;
+//        }
+//
+//        // Dispatch 'beforeSubscribe' event
+//        if ($options['events'] && in_array('before', $options['events'])) {
+//            $event = new Event('Newsletter.List.Member.beforeUnsubscribe', $this, [
+//                'list' => $list,
+//                'member' => $member,
+//                'options' => $options
+//            ]);
+//            $this->eventManager()->dispatch($event);
+//        }
+//
+//        // Update entity
+//        $member->status = NewsletterMembersTable::STATUS_UNSUBSCRIBED;
+//
+//        if (!$this->NewsletterMembers->save($member)) {
+//            return false;
+//        }
+//
+//        // Dispatch 'afterUnsubscribe' event
+//        if ($options['events'] && in_array('after', $options['events'])) {
+//            $event = new Event('Newsletter.List.Member.afterUnsubscribe', $this, [
+//                'list' => $list,
+//                'member' => $member,
+//                'options' => $options
+//            ]);
+//            $this->eventManager()->dispatch($event);
+//        }
+//
+//        return $member;
+//    }
+//
+//    /**
+//     * Update list member data by email
+//     *
+//     * @param NewsletterList $list
+//     * @param $email
+//     * @param array $data
+//     * @param array $options
+//     * @return bool|\Newsletter\Model\Entity\NewsletterMember
+//     */
+//    public function updateMember(NewsletterList $list, $email, $data = [], array $options = [])
+//    {
+//        $options += ['events' => null];
+//        if ($options['events'] === true) {
+//            $options['events'] = ['before', 'after'];
+//        }
+//
+//        $member = $this->getListMemberByEmail($list, $email);
+//        if (!$member) {
+//            return $this->subscribeMember($list, $email, $data, $options);
+//        }
+//
+//        //@TODO Set allowed fields
+//        //$member->accessible([], false);
+//        $member = $this->NewsletterMembers->patchEntity($member, $data);
+//
+//        // Dispatch 'beforeUpdate' event
+//        if ($options['events'] && in_array('before', $options['events'])) {
+//            $event = new Event('Newsletter.List.Member.beforeUpdate', $this, [
+//                'list' => $list,
+//                'member' => $member,
+//                'data' => $data,
+//                'options' => $options
+//            ]);
+//            $this->eventManager()->dispatch($event);
+//        }
+//
+//        if (!($member = $this->NewsletterMembers->save($member))) {
+//            return false;
+//        }
+//
+//        // Dispatch 'afterUpdate' event
+//        if ($options['events'] && in_array('after', $options['events'])) {
+//            $event = new Event('Newsletter.List.Member.afterUpdate', $this, [
+//                'list' => $list,
+//                'member' => $member,
+//                'data' => $data,
+//                'options' => $options
+//            ]);
+//            $this->eventManager()->dispatch($event);
+//        }
+//
+//        return $member;
+//    }
 }
