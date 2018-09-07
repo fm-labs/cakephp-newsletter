@@ -63,7 +63,8 @@ class NewsletterMembersTable extends Table
         //    ->notEmpty('newsletter_list_id');
 
         $validator
-            ->add('email', 'valid', ['rule' => 'email'])
+            ->add('email', 'email_check', ['rule' => ['email', true], 'message' => __('Provide a valid email address'), 'on' => 'create'])
+            ->add('email', 'email_nocheck', ['rule' => ['email', false], 'message' => __('Provide a valid email address'), 'on' => 'update'])
             ->requirePresence('email', 'create')
             ->notEmpty('email');
 
@@ -162,10 +163,12 @@ class NewsletterMembersTable extends Table
                 'email_verified' => !$options['optIn']
             ]);
             $isNew = true;
+            //debug($member->errors());
         }
 
         if (!empty($data)) {
             $member = $this->patchEntity($member, $data);
+            //debug($member->errors());
         }
 
         // Dispatch 'beforeSubscribe' event

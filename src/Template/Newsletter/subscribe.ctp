@@ -23,7 +23,7 @@
         'type' => 'email'
     ]); ?>
     <br />
-    <?= $this->Form->submit(__d('newsletter', 'Submit'), ['class' => 'ui primary button']); ?>
+    <?= $this->Form->submit(__d('newsletter', 'Submit')); ?>
     <?= $this->Form->end(); ?>
 
 </div>
