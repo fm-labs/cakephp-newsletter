@@ -30,56 +30,73 @@ class NewsletterController extends AppController
 
     public function subscribe()
     {
-        $form = new NewsletterSubscribeForm();
+        $success = false;
+        $member = $this->NewsletterMembers->newEntity();
         if ($this->request->is(['post', 'put'])) {
-            if ($form->execute($this->request->data())) {
+            $email = $this->request->data('email');
+            $member = $this->NewsletterMembers->subscribeMember($email, $this->request->data, ['events' => true, 'source' => 'form']);
+            if ($member && !$member->errors() && $member->id) {
                 $this->Flash->success(__d('newsletter', 'Newsletter signup was successful!'));
+                $success = true;
             } else {
                 $this->Flash->error(__d('newsletter', 'Please fill all required fields'));
             }
         }
-        $this->set('form', $form);
+        $this->set('member', $member);
+        $this->set('success', $success);
+        $this->set('_serialize', ['success', 'member']);
     }
 
     public function unsubscribe()
     {
-        $form = new NewsletterUnsubscribeForm();
+        $success = false;
+        $member = $this->NewsletterMembers->newEntity();
         if ($this->request->is(['post', 'put'])) {
-            if ($form->execute($this->request->data())) {
+            $email = $this->request->data('email');
+            $member = $this->NewsletterMembers->unsubscribeMember($email, ['events' => true, 'source' => 'form']);
+            if ($member && !$member->errors()) {
                 $this->Flash->success(__d('newsletter', 'Unsubscribe was successful!'));
+                $success = true;
             } else {
                 $this->Flash->error(__d('newsletter', 'Please fill all required fields'));
             }
         }
-        $this->set('form', $form);
+        $this->set('member', $member);
+        $this->set('success', $success);
+        $this->set('_serialize', ['success', 'member']);
     }
+
 
 //    public function subscribe()
 //    {
-//        $member = $this->NewsletterMembers->newEntity();
+//        $success = false;
+//        $form = new NewsletterSubscribeForm();
 //        if ($this->request->is(['post', 'put'])) {
-//            $email = $this->request->data('email');
-//            $member = $this->NewsletterMembers->subscribeMember($email, $this->request->data, ['events' => true, 'source' => 'form']);
-//            if ($member && !$member->errors() && $member->id) {
+//            if ($form->execute($this->request->data())) {
 //                $this->Flash->success(__d('newsletter', 'Newsletter signup was successful!'));
+//                $success = true;
 //            } else {
-//                $this->Flash->error(__d('newsletter', 'Something went wrong. Please try again.'));
+//                $this->Flash->error(__d('newsletter', 'Please fill all required fields'));
 //            }
 //        }
-//        $this->set('member', $member);
+//        $this->set('form', $form);
+//        $this->set('success', $success);
 //    }
 //
 //    public function unsubscribe()
 //    {
-//        $member = $this->NewsletterMembers->newEntity();
+//        $success = false;
+//        $form = new NewsletterUnsubscribeForm();
 //        if ($this->request->is(['post', 'put'])) {
-//            $email = $this->request->data('email');
-//            if ($this->NewsletterMembers->unsubscribeMember($email, ['events' => true, 'source' => 'form'])) {
+//            if ($form->execute($this->request->data())) {
 //                $this->Flash->success(__d('newsletter', 'Unsubscribe was successful!'));
+//                $success = true;
 //            } else {
-//                $this->Flash->error(__d('newsletter', 'Something went wrong. Please try again.'));
+//                $this->Flash->error(__d('newsletter', 'Please fill all required fields'));
 //            }
 //        }
-//        $this->set('member', $member);
+//        $this->set('form', $form);
+//        $this->set('success', $success);
 //    }
+
 }

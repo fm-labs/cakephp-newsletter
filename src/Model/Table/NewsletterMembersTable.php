@@ -191,7 +191,7 @@ class NewsletterMembersTable extends Table
         }
 
         if (!$this->save($member)) {
-            debug("saving failed");
+            //debug("saving failed");
             return $member;
         }
 
@@ -225,8 +225,8 @@ class NewsletterMembersTable extends Table
 
         $member = $this->getByEmail($email);
         if (!$member) {
-            //throw new NotFoundException("Unknown subscriber email: $email");
-            return $this->newEntity(/*['email' => $email]*/);
+            $member = $this->newEntity(['email' => $email]);
+            return $member;
         }
 
         if ($member->status == self::STATUS_UNSUBSCRIBED || $member->status == self::STATUS_CLEANED) {

@@ -6,6 +6,7 @@
  */
 return [
     'Newsletter' => [
+        'layout' => null, // the layout used in the NewsletterController
         'Mailer' => [
             'enabled' => false,
             'profile' => 'default'
@@ -13,6 +14,8 @@ return [
 
         'Mailchimp' => [
             'enabled' => false,
+            'api_key' => '', // Mailchimp API Key
+            'list_id' => '', // Mailchimp List ID
         ]
     ]
 ];
