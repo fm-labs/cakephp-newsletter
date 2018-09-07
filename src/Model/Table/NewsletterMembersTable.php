@@ -105,133 +105,14 @@ class NewsletterMembersTable extends Table
         return $rules;
     }
 
+    /**
+     * Email address finder method
+     * @return \Cake\ORM\Query
+     */
     public function findByEmail($email)
     {
-        return $this->find()->where(['email' => $email])->first();
+        return $this->find()
+            ->where(['email' => $email]);
     }
 
-    public function subscribe($email, $data = [], array $options = [])
-    {
-        $options += ['optIn' => false, 'events' => false];
-        if ($options['events'] === true) {
-            $options['events'] = ['before', 'after'];
-        }
-
-        $member = $this->findByEmail($email);
-        if (!$member) {
-            $member = $this->newEntity();
-            $data['email'] = $email;
-        }
-
-        if (!empty($data)) {
-            $member = $this->patchEntity($member, $data);
-        }
-
-        // Dispatch 'beforeSubscribe' event
-        if ($options['events'] && in_array('before', $options['events'])) {
-            $event = new Event('Newsletter.Model.Member.beforeSubscribe', $this, [
-                'member' => $member,
-                'data' => $data,
-                'options' => $options
-            ]);
-            $this->eventManager()->dispatch($event);
-        }
-
-        // Update entity
-        if ($options['optIn'] === true && $member->email_verified == false) {
-            $member->status = self::STATUS_PENDING;
-        } else {
-            $member->status = self::STATUS_SUBSCRIBED;
-            $member->email_verified = true;
-        }
-
-        // Dispatch 'afterSubscribe' event
-        if ($options['events'] && in_array('after', $options['events'])) {
-            $event = new Event('Newsletter.Model.Member.afterSubscribe', $this, [
-                'member' => $member,
-                'data' => $data,
-                'options' => $options
-            ]);
-            $this->eventManager()->dispatch($event);
-        }
-
-        Log::info(json_encode($member->errors()), ['newsletter']);
-
-        return $this->save($member);
-    }
-
-    public function unsubscribe($email, array $options = [])
-    {
-        $options += ['optIn' => false, 'events' => false];
-        if ($options['events'] === true) {
-            $options['events'] = ['before', 'after'];
-        }
-
-        $member = $this->findByEmail($email);
-        if (!$member) {
-            return true;
-        }
-
-        // Dispatch 'beforeSubscribe' event
-        if ($options['events'] && in_array('before', $options['events'])) {
-            $event = new Event('Newsletter.Model.Member.beforeUnsubscribe', $this, [
-                'member' => $member,
-                'options' => $options
-            ]);
-            $this->eventManager()->dispatch($event);
-        }
-
-        // Update entity
-        $member->status = self::STATUS_UNSUBSCRIBED;
-
-        // Dispatch 'afterUnsubscribe' event
-        if ($options['events'] && in_array('after', $options['events'])) {
-            $event = new Event('Newsletter.Model.Member.afterUnsubscribe', $this, [
-                'member' => $member,
-                'options' => $options
-            ]);
-            $this->eventManager()->dispatch($event);
-        }
-
-        return $this->save($member);
-    }
-
-    public function updateProfile($email, $data = [], array $options = [])
-    {
-        $options += ['optIn' => false, 'events' => false];
-        if ($options['events'] === true) {
-            $options['events'] = ['before', 'after'];
-        }
-
-        $member = $this->findByEmail($email);
-        if (!$member) {
-            return $this->subscribe($email, $data, $options);
-        }
-
-        //@TODO Set allowed fields
-        //$member->accessible([], false);
-        $member = $this->patchEntity($member, $data);
-
-        // Dispatch 'beforeUpdate' event
-        if ($options['events'] && in_array('before', $options['events'])) {
-            $event = new Event('Newsletter.Model.Member.beforeUpdate', $this, [
-                'member' => $member,
-                'data' => $data,
-                'options' => $options
-            ]);
-            $this->eventManager()->dispatch($event);
-        }
-
-        // Dispatch 'afterUpdate' event
-        if ($options['events'] && in_array('after', $options['events'])) {
-            $event = new Event('Newsletter.Model.Member.afterUpdate', $this, [
-                'member' => $member,
-                'data' => $data,
-                'options' => $options
-            ]);
-            $this->eventManager()->dispatch($event);
-        }
-
-        return $this->save($member);
-    }
 }

@@ -22,8 +22,8 @@ class NewsletterMailerService implements EventListenerInterface
     public function implementedEvents()
     {
         return [
-            'Newsletter.Model.Member.beforeSubscribe' => 'beforeSubscribe',
-            'Newsletter.Model.Member.afterSubscribe' => 'afterSubscribe'
+            'Newsletter.List.Member.beforeSubscribe' => 'beforeSubscribe',
+            'Newsletter.List.Member.afterSubscribe' => 'afterSubscribe'
         ];
     }
 

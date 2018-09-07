@@ -3,7 +3,7 @@ namespace Newsletter\Controller\Admin;
 
 use Backend\Controller\BackendActionsTrait;
 use Cake\Event\Event;
-use Newsletter\Mailer\NewsletterOwnerMailer;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * NewsletterLists Controller
@@ -31,6 +31,14 @@ class NewsletterListsController extends AppController
         'edit'      => 'Backend.Edit',
         'delete'    => 'Backend.Delete'
     ];
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+
+        //$this->Action->registerInline('mailchimpConfig', ['scope' => ['form', 'table'], 'attrs' => ['data-icon' => 'monkey']]);
+    }
+
     /**
      * Index method
      *
@@ -50,7 +58,31 @@ class NewsletterListsController extends AppController
      */
     public function view($id = null)
     {
+        $this->set('related', ['NewsletterMembers' => []]);
+        $this->set('entityOptions', ['contain' => ['NewsletterMembers']]);
         $this->Action->execute();
+    }
+
+    public function mailchimpConfig($id = null)
+    {
+        try {
+
+            $list = $this->NewsletterLists->get($id);
+            if (!$list) {
+                throw new NotFoundException();
+            }
+
+            $mailchimp = $this->NewsletterLists->getMailchimpClient($list);
+
+            $mcMembers = $mailchimp->getListMembers($list->mailchimp_listid);
+            debug($mcMembers);
+            //$mcSubmitForms = $mailchimp->getListSignupForms($list->mailchimp_listid);
+            //debug($mcSubmitForms);
+
+        } catch (\Exception $ex) {
+            $this->Flash->error($ex->getMessage());
+            return $this->redirect($this->referer(['action' => 'index']));
+        }
     }
 
     /**
@@ -58,10 +90,10 @@ class NewsletterListsController extends AppController
      */
     public function implementedEvents()
     {
-        return [
-            'Backend.Action.Index.getRowActions' => function(Event $event) {
-                //$event->result[] = [__('Notify Owner'), ['action' => 'notifyOwner', ':id']];
-            }
-        ];
+        $events = parent::implementedEvents();
+        $events['Backend.Action.Index.getRowActions'] = function(Event $event) {
+            $event->result[] = [__('Mailchimp Hello'), ['action' => 'mailchimpHello', ':id']];
+        };
+        return $events;
     }
 }
