@@ -373,4 +373,21 @@ class NewsletterMembersTable extends Table
             Log::error("MailchimpSync: ERROR: " . $ex->getMessage(), ['newsletter']);
         }
     }
+
+    public function getStats()
+    {
+        $stats = [
+            'newsletter_subscribers_total_count' => 0,
+            'newsletter_subscribers_today_count' => 0,
+            'newsletter_subscribers_week_count' => 0,
+            'newsletter_subscribers_month_count' => 0
+        ];
+
+        $stats['newsletter_subscribers_total_count'] = $this->find()->count();
+        $stats['newsletter_subscribers_today_count'] = $this->find()->where(['created >= '  => date("Y-m-d H:i:s", time() - DAY)])->count();
+        $stats['newsletter_subscribers_week_count'] = $this->find()->where(['created >= '  => date("Y-m-d H:i:s", time() - WEEK)])->count();
+        $stats['newsletter_subscribers_month_count'] = $this->find()->where(['created >= '  => date("Y-m-d H:i:s", time() - MONTH)])->count();
+
+        return $stats;
+    }
 }
