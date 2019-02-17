@@ -8,7 +8,6 @@
 
 namespace Newsletter\View\Cell;
 
-
 use Cake\View\Cell;
 use Newsletter\Model\Table\NewsletterMembersTable;
 

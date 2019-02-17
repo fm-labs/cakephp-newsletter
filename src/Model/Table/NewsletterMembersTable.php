@@ -226,6 +226,7 @@ class NewsletterMembersTable extends Table
         $member = $this->getByEmail($email);
         if (!$member) {
             $member = $this->newEntity(['email' => $email]);
+
             return $member;
         }
 
@@ -340,6 +341,7 @@ class NewsletterMembersTable extends Table
         }
 
         $mailchimp = new MailchimpApiClient(Configure::read('Newsletter.Mailchimp'));
+
         return $mailchimp;
     }
 
@@ -368,7 +370,6 @@ class NewsletterMembersTable extends Table
                     }
                     break;
             }
-
         } catch (\Exception $ex) {
             Log::error("MailchimpSync: ERROR: " . $ex->getMessage(), ['newsletter']);
         }

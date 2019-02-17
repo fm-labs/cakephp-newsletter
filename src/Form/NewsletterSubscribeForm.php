@@ -33,6 +33,7 @@ class NewsletterSubscribeForm extends Form
     protected function _buildValidator(Validator $validator)
     {
         $this->NewsletterMembers->validationDefault($validator);
+
         return $validator;
     }
 
@@ -46,6 +47,7 @@ class NewsletterSubscribeForm extends Form
 
         if ($member->errors() || !$member->id) {
             $this->_errors = $member->errors();
+
             return false;
         }
 

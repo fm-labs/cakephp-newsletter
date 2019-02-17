@@ -66,7 +66,6 @@ class NewsletterController extends AppController
         $this->set('_serialize', ['success', 'member']);
     }
 
-
 //    public function subscribe()
 //    {
 //        $success = false;
@@ -98,5 +97,4 @@ class NewsletterController extends AppController
 //        $this->set('form', $form);
 //        $this->set('success', $success);
 //    }
-
 }

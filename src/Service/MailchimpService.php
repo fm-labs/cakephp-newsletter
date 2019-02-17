@@ -63,7 +63,6 @@ class MailchimpService implements EventListenerInterface
             Log::info("MailchimpService: LocalEvent: " . $event->name(), ['newsletter']);
             $this->NewsletterMembers->mailchimp()
                 ->subscribeMember($event->data['member']['email']);
-
         } catch (\Exception $ex) {
             Log::info("MailchimpService: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
         }
@@ -83,7 +82,6 @@ class MailchimpService implements EventListenerInterface
             Log::info("MailchimpService: LocalEvent: " . $event->name(), ['newsletter']);
             $this->NewsletterMembers->mailchimp()
                 ->unsubscribeMember($event->data['member']['email']);
-
         } catch (\Exception $ex) {
             Log::info("MailchimpService: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
         }
@@ -195,7 +193,7 @@ class MailchimpService implements EventListenerInterface
         ];
 
         $data = [];
-        foreach($map as $path =>$k) {
+        foreach ($map as $path => $k) {
             if (Hash::check($raw, $path)) {
                 $val = Hash::get($raw, $path);
                 //if ($val) {
@@ -203,6 +201,7 @@ class MailchimpService implements EventListenerInterface
                 //}
             }
         }
+
         return $data;
     }
 }

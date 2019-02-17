@@ -93,13 +93,13 @@ class NewsletterMailer extends Mailer
         }
 
         if (is_string($profile) /*&& Configure::check('Newsletter.Email.' . $profile)*/) {
-            $profile = (array) Configure::read('Newsletter.Email.' . $profile);
+            $profile = (array)Configure::read('Newsletter.Email.' . $profile);
         }
 
         $this->_email->profile($profile);
+
         return $this;
     }
-
 
     /**
      * Sets the active member for emailing

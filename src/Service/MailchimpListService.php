@@ -191,7 +191,7 @@ class MailchimpListService implements EventListenerInterface
         ];
 
         $data = [];
-        foreach($map as $path =>$k) {
+        foreach ($map as $path => $k) {
             if (Hash::check($raw, $path)) {
                 $val = Hash::get($raw, $path);
                 //if ($val) {
@@ -199,6 +199,7 @@ class MailchimpListService implements EventListenerInterface
                 //}
             }
         }
+
         return $data;
     }
 }

@@ -36,8 +36,12 @@ class NewsletterMailerService implements EventListenerInterface
         $member = $event->data['member'];
 
         $logMsg = "NewsletterMailerService::afterSubscribe: " . $member->email . " - ";
-        Log::info(sprintf($logMsg . "%s|%s|%s",
-            $member->greeting, $member->last_name, $member->first_name), ['newsletter']);
+        Log::info(sprintf(
+            $logMsg . "%s|%s|%s",
+            $member->greeting,
+            $member->last_name,
+            $member->first_name
+        ), ['newsletter']);
 
         // Email to member
         try {
@@ -60,17 +64,20 @@ class NewsletterMailerService implements EventListenerInterface
         $member = $event->data['member'];
 
         $logMsg = "NewsletterMailerService::afterUnsubscribe: " . $member->email . " - ";
-        Log::info(sprintf($logMsg . "%s|%s|%s",
-            $member->greeting, $member->last_name, $member->first_name), ['newsletter']);
+        Log::info(sprintf(
+            $logMsg . "%s|%s|%s",
+            $member->greeting,
+            $member->last_name,
+            $member->first_name
+        ), ['newsletter']);
 
         // Email to member
         try {
             if ($member->status = NewsletterMembersTable::STATUS_UNSUBSCRIBED) {
-                (new NewsletterMailer())->send('memberUnsubscribe',[$member]);
+                (new NewsletterMailer())->send('memberUnsubscribe', [$member]);
             }
         } catch (\Exception $ex) {
             Log::error('NewsletterMailerService::afterUnsubscribe: ' . $ex->getMessage(), ['newsletter']);
         }
     }
-
 }

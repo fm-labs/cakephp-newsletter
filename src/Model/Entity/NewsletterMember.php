@@ -47,15 +47,15 @@ class NewsletterMember extends Entity
     protected function _getName()
     {
         $name = null;
-        $first_name = $this->first_name;
-        $last_name = $this->last_name;
+        $firstName = $this->first_name;
+        $lastName = $this->last_name;
 
-        if ($first_name && $last_name) {
-            $name = $first_name . ' ' . $last_name;
-        } elseif ($last_name) {
-            $name = $last_name;
-        } elseif ($first_name) {
-            $name = $first_name;
+        if ($firstName && $lastName) {
+            $name = $firstName . ' ' . $lastName;
+        } elseif ($lastName) {
+            $name = $lastName;
+        } elseif ($firstName) {
+            $name = $firstName;
         }
 
         return $name;
@@ -64,24 +64,24 @@ class NewsletterMember extends Entity
     protected function _getDisplayName()
     {
         $name = null;
-        $first_name = $this->first_name;
-        $last_name = $this->last_name;
+        $firstName = $this->first_name;
+        $lastName = $this->last_name;
 
-        if ($first_name && $last_name) {
-        } elseif ($last_name) {
-            $name = $last_name;
-        } elseif ($first_name) {
-            $name = $first_name;
+        if ($firstName && $lastName) {
+        } elseif ($lastName) {
+            $name = $lastName;
+        } elseif ($firstName) {
+            $name = $firstName;
         }
 
-        if (!$last_name) {
-            $last_name = __d('newsletter', '[UNKNOWN]');
+        if (!$lastName) {
+            $lastName = __d('newsletter', '[UNKNOWN]');
         }
 
-        if (!$first_name) {
-            $first_name = __d('newsletter', '[UNKNOWN]');
+        if (!$firstName) {
+            $firstName = __d('newsletter', '[UNKNOWN]');
         }
 
-        return sprintf("%s, %s", $last_name, $first_name);
+        return sprintf("%s, %s", $lastName, $firstName);
     }
 }

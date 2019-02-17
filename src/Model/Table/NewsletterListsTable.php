@@ -93,8 +93,7 @@ class NewsletterListsTable extends Table
     {
         if (!$list->mailchimp_listid) {
             throw new \RuntimeException("Mailchimp List ID not configured");
-        }
-        elseif (!$list->mailchimp_apikey) {
+        } elseif (!$list->mailchimp_apikey) {
             throw new \RuntimeException("Mailchimp API Key not configured");
         }
 

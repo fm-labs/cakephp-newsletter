@@ -41,7 +41,6 @@ class NewsletterMembersController extends AppController
         $this->Action->registerInline('sendEmail', ['scope' => ['form', 'table'], 'attrs' => ['data-icon' => 'envelope-o']]);
     }
 
-
     /**
      * Index method
      *
@@ -99,7 +98,6 @@ class NewsletterMembersController extends AppController
             }
             //$this->redirect($this->referer(['action' => 'index']));
         }
-
 
         $this->set(compact('member', 'mailerActions'));
     }

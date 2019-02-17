@@ -17,5 +17,4 @@ class NewsletterController extends AppController
     {
         $this->redirect(['controller' => 'NewsletterLists']);
     }
-
 }

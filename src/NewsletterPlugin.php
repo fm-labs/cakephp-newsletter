@@ -70,7 +70,6 @@ class NewsletterPlugin implements EventListenerInterface, PluginInterface, Backe
 
     public function routes(RouteBuilder $routes)
     {
-
     }
 
     public function middleware(MiddlewareQueue $middleware)

@@ -22,12 +22,14 @@ class NewsletterUnsubscribeForm extends Form
     protected function _buildSchema(Schema $schema)
     {
         $schema->addField('email', $this->NewsletterMembers->schema()->column('email'));
+
         return $schema;
     }
 
     protected function _buildValidator(Validator $validator)
     {
         $validator->email('email', false);
+
         return $validator;
     }
 
@@ -41,6 +43,7 @@ class NewsletterUnsubscribeForm extends Form
 
         if ($member->errors()) {
             $this->_errors = $member->errors();
+
             return false;
         }
 

@@ -66,7 +66,6 @@ class NewsletterListsController extends AppController
     public function mailchimpConfig($id = null)
     {
         try {
-
             $list = $this->NewsletterLists->get($id);
             if (!$list) {
                 throw new NotFoundException();
@@ -78,9 +77,9 @@ class NewsletterListsController extends AppController
             debug($mcMembers);
             //$mcSubmitForms = $mailchimp->getListSignupForms($list->mailchimp_listid);
             //debug($mcSubmitForms);
-
         } catch (\Exception $ex) {
             $this->Flash->error($ex->getMessage());
+
             return $this->redirect($this->referer(['action' => 'index']));
         }
     }
@@ -91,9 +90,10 @@ class NewsletterListsController extends AppController
     public function implementedEvents()
     {
         $events = parent::implementedEvents();
-        $events['Backend.Action.Index.getRowActions'] = function(Event $event) {
+        $events['Backend.Action.Index.getRowActions'] = function (Event $event) {
             $event->result[] = [__d('newsletter', 'Mailchimp Hello'), ['action' => 'mailchimpHello', ':id']];
         };
+
         return $events;
     }
 }

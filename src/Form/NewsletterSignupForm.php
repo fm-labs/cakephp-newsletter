@@ -42,12 +42,18 @@ class NewsletterSignupForm extends Form
 
         $member = $NewsletterMembers->newEntity($data);
         if ($member->errors()) {
-            debug ($member);
+            debug($member);
+
             return false;
         }
 
-        Log::info(sprintf("Newsletter-Anmeldung: %s|%s|%s|%s",
-            $data['email'], $data['greeting'], $data['first_name'], $data['last_name']), ['newsletter']);
+        Log::info(sprintf(
+            "Newsletter-Anmeldung: %s|%s|%s|%s",
+            $data['email'],
+            $data['greeting'],
+            $data['first_name'],
+            $data['last_name']
+        ), ['newsletter']);
 
         // Email to User
         try {
@@ -72,6 +78,7 @@ class NewsletterSignupForm extends Form
             $sent = $email->send();
             debug($sent);
             Log::info("Email: User Newsletter Signup notification has been sent", ['mail', 'newsletter']);
+
             return $sent;
         } catch (\Exception $ex) {
             Log::error($ex->getMessage(), ['mail', 'newsletter']);
