@@ -1,7 +1,6 @@
 <?php
 namespace Newsletter\Controller\Admin;
 
-use Backend\Controller\BackendActionsTrait;
 use Cake\Event\Event;
 use Newsletter\Mailer\NewsletterMailer;
 use Newsletter\Mailer\NewsletterOwnerMailer;
@@ -13,8 +12,6 @@ use Newsletter\Mailer\NewsletterOwnerMailer;
  */
 class NewsletterMembersController extends AppController
 {
-    use BackendActionsTrait;
-
     /**
      * @var array
      */

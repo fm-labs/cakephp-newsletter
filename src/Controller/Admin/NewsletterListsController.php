@@ -1,7 +1,6 @@
 <?php
 namespace Newsletter\Controller\Admin;
 
-use Backend\Controller\BackendActionsTrait;
 use Cake\Event\Event;
 use Cake\Network\Exception\NotFoundException;
 
@@ -12,8 +11,6 @@ use Cake\Network\Exception\NotFoundException;
  */
 class NewsletterListsController extends AppController
 {
-    use BackendActionsTrait;
-
     /**
      * @var array
      */
@@ -25,29 +22,12 @@ class NewsletterListsController extends AppController
      * @var array
      */
     public $actions = [
-        'index'     => 'Backend.Index',
-        'view'      => 'Backend.View',
-        'add'       => 'Backend.Add',
-        'edit'      => 'Backend.Edit',
-        'delete'    => 'Backend.Delete'
+        'index' => 'Backend.Index',
+        'view' => 'Backend.View',
+        'add' => 'Backend.Add',
+        'edit' => 'Backend.Edit',
+        'delete' => 'Backend.Delete'
     ];
-
-    public function beforeFilter(Event $event)
-    {
-        parent::beforeFilter($event);
-
-        //$this->Action->registerInline('mailchimpConfig', ['scope' => ['form', 'table'], 'attrs' => ['data-icon' => 'monkey']]);
-    }
-
-    /**
-     * Index method
-     *
-     * @return void
-     */
-    public function index()
-    {
-        $this->Action->execute();
-    }
 
     /**
      * View method
@@ -63,6 +43,12 @@ class NewsletterListsController extends AppController
         $this->Action->execute();
     }
 
+    /**
+     * Mailchimp config
+     *
+     * @param null|int $id List ID
+     * @return void|null|\Cake\Network\Response
+     */
     public function mailchimpConfig($id = null)
     {
         try {
