@@ -2,13 +2,6 @@
 
 namespace Newsletter\Controller\Admin;
 
-use App\Controller\Admin\AppController as BaseController;
-
-class AppController extends BaseController
+class AppController extends \App\Controller\Admin\AppController
 {
-    public function initialize()
-    {
-        parent::initialize();
-        $this->loadComponent('Backend.Backend');
-    }
 }

@@ -5,6 +5,7 @@ namespace Newsletter;
 use Backend\Backend;
 use Backend\BackendPluginInterface;
 use Banana\Application;
+use Banana\Plugin\BasePlugin;
 use Banana\Plugin\PluginInterface;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
@@ -21,12 +22,14 @@ use Newsletter\Service\NewsletterMailerService;
  *
  * @package Newsletter
  */
-class NewsletterPlugin implements EventListenerInterface, PluginInterface, BackendPluginInterface
+class NewsletterPlugin extends BasePlugin implements EventListenerInterface
 {
+    protected $_name = "Newsletter";
+
     public function implementedEvents()
     {
         return [
-            'Backend.Sidebar.build'    => ['callable' => 'buildBackendMenu', 'priority' => 80 ],
+            'Backend.Menu.build.admin_primary'    => ['callable' => 'buildBackendMenu', 'priority' => 80 ],
         ];
     }
 
@@ -57,6 +60,8 @@ class NewsletterPlugin implements EventListenerInterface, PluginInterface, Backe
 
     public function bootstrap(Application $app)
     {
+        parent::bootstrap($app);
+
         EventManager::instance()->on($this);
 
         if (Configure::read('Newsletter.Mailer.enabled') == true) {
@@ -66,22 +71,5 @@ class NewsletterPlugin implements EventListenerInterface, PluginInterface, Backe
         if (Configure::read('Newsletter.Mailchimp.enabled') == true && Plugin::loaded('Mailchimp')) {
             EventManager::instance()->on(new MailchimpService());
         }
-    }
-
-    public function routes(RouteBuilder $routes)
-    {
-    }
-
-    public function middleware(MiddlewareQueue $middleware)
-    {
-    }
-
-    public function backendBootstrap(Backend $backend)
-    {
-    }
-
-    public function backendRoutes(RouteBuilder $routes)
-    {
-        $routes->fallbacks('DashedRoute');
     }
 }
