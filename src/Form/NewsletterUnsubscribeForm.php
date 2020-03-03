@@ -16,7 +16,7 @@ class NewsletterUnsubscribeForm extends Form
 
     public function __construct()
     {
-        $this->NewsletterMembers = TableRegistry::get('Newsletter.NewsletterMembers');
+        $this->NewsletterMembers = TableRegistry::getTableLocator()->get('Newsletter.NewsletterMembers');
     }
 
     protected function _buildSchema(Schema $schema)

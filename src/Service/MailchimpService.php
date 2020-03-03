@@ -27,7 +27,7 @@ class MailchimpService implements EventListenerInterface
      */
     public function __construct()
     {
-        $this->NewsletterMembers = TableRegistry::get('Newsletter.NewsletterMembers');
+        $this->NewsletterMembers = TableRegistry::getTableLocator()->get('Newsletter.NewsletterMembers');
     }
 
     /**

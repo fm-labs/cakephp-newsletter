@@ -38,10 +38,10 @@ class NewsletterSignupForm extends Form
     protected function _execute(array $data)
     {
 
-        $NewsletterMembers = TableRegistry::get('Newsletter.NewsletterMembers');
+        $NewsletterMembers = TableRegistry::getTableLocator()->get('Newsletter.NewsletterMembers');
 
         $member = $NewsletterMembers->newEntity($data);
-        if ($member->errors()) {
+        if ($member->getErrors()) {
             debug($member);
 
             return false;
