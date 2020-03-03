@@ -39,7 +39,7 @@ class NewsletterPlugin extends BasePlugin implements EventListenerInterface
      */
     public function buildBackendMenu(Event $event)
     {
-        $event->subject()->addItem([
+        $event->getSubject()->addItem([
             'title' => 'Newsletter',
             'url' => ['plugin' => 'Newsletter', 'controller' => 'NewsletterMembers', 'action' => 'index'],
             'data-icon' => 'newspaper-o',
