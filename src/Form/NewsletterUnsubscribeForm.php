@@ -21,7 +21,7 @@ class NewsletterUnsubscribeForm extends Form
 
     protected function _buildSchema(Schema $schema)
     {
-        $schema->addField('email', $this->NewsletterMembers->schema()->column('email'));
+        $schema->addField('email', $this->NewsletterMembers->getSchema()->column('email'));
 
         return $schema;
     }
