@@ -45,8 +45,8 @@ class NewsletterSubscribeForm extends Form
             return false;
         }
 
-        if ($member->errors() || !$member->id) {
-            $this->_errors = $member->errors();
+        if ($member->getErrors() || !$member->id) {
+            $this->_errors = $member->getErrors();
 
             return false;
         }

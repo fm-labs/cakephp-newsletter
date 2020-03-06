@@ -3,7 +3,7 @@ namespace Newsletter\Model\Table;
 
 use Cake\Event\Event;
 use Cake\Log\Log;
-use Cake\Network\Exception\NotFoundException;
+use Cake\Http\Exception\NotFoundException;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -37,9 +37,9 @@ class NewsletterListsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('newsletter_lists');
-        $this->displayField('title');
-        $this->primaryKey('id');
+        $this->setTable('newsletter_lists');
+        $this->setDisplayField('title');
+        $this->setPrimaryKey('id');
 
 //        $this->hasMany('NewsletterMembers', [
 //            'foreignKey' => 'newsletter_list_id',
@@ -178,7 +178,7 @@ class NewsletterListsTable extends Table
 //                'data' => $data,
 //                'options' => $options
 //            ]);
-//            $this->eventManager()->dispatch($event);
+//            $this->getEventManager()->dispatch($event);
 //        }
 //
 //        // Update entity
@@ -202,7 +202,7 @@ class NewsletterListsTable extends Table
 //                'data' => $data,
 //                'options' => $options
 //            ]);
-//            $this->eventManager()->dispatch($event);
+//            $this->getEventManager()->dispatch($event);
 //        }
 //
 //        return $member;
@@ -236,7 +236,7 @@ class NewsletterListsTable extends Table
 //                'member' => $member,
 //                'options' => $options
 //            ]);
-//            $this->eventManager()->dispatch($event);
+//            $this->getEventManager()->dispatch($event);
 //        }
 //
 //        // Update entity
@@ -253,7 +253,7 @@ class NewsletterListsTable extends Table
 //                'member' => $member,
 //                'options' => $options
 //            ]);
-//            $this->eventManager()->dispatch($event);
+//            $this->getEventManager()->dispatch($event);
 //        }
 //
 //        return $member;
@@ -292,7 +292,7 @@ class NewsletterListsTable extends Table
 //                'data' => $data,
 //                'options' => $options
 //            ]);
-//            $this->eventManager()->dispatch($event);
+//            $this->getEventManager()->dispatch($event);
 //        }
 //
 //        if (!($member = $this->NewsletterMembers->save($member))) {
@@ -307,7 +307,7 @@ class NewsletterListsTable extends Table
 //                'data' => $data,
 //                'options' => $options
 //            ]);
-//            $this->eventManager()->dispatch($event);
+//            $this->getEventManager()->dispatch($event);
 //        }
 //
 //        return $member;

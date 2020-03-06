@@ -2,7 +2,7 @@
 namespace Newsletter\Controller\Admin;
 
 use Cake\Event\Event;
-use Cake\Network\Exception\NotFoundException;
+use Cake\Http\Exception\NotFoundException;
 
 /**
  * NewsletterLists Controller
@@ -34,7 +34,7 @@ class NewsletterListsController extends AppController
      *
      * @param string|null $id Newsletter Reader id.
      * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function view($id = null)
     {
@@ -47,7 +47,7 @@ class NewsletterListsController extends AppController
      * Mailchimp config
      *
      * @param null|int $id List ID
-     * @return void|null|\Cake\Network\Response
+     * @return void|null|\Cake\Http\Response
      */
     public function mailchimpConfig($id = null)
     {

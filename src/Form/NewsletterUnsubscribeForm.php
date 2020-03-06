@@ -41,8 +41,8 @@ class NewsletterUnsubscribeForm extends Form
             return false;
         }
 
-        if ($member->errors()) {
-            $this->_errors = $member->errors();
+        if ($member->getErrors()) {
+            $this->_errors = $member->getErrors();
 
             return false;
         }

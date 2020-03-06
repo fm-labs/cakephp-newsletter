@@ -34,9 +34,9 @@ class NewsletterMembersTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('newsletter_members');
-        $this->displayField('email');
-        $this->primaryKey('id');
+        $this->setTable('newsletter_members');
+        $this->setDisplayField('email');
+        $this->setPrimaryKey('id');
 
         //$this->belongsTo('NewsletterLists', [
         //    'className' => 'Newsletter.NewsletterLists',
@@ -163,12 +163,12 @@ class NewsletterMembersTable extends Table
                 'email_verified' => !$options['optIn']
             ]);
             $isNew = true;
-            //debug($member->errors());
+            //debug($member->getErrors());
         }
 
         if (!empty($data)) {
             $member = $this->patchEntity($member, $data);
-            //debug($member->errors());
+            //debug($member->getErrors());
         }
 
         // Dispatch 'beforeSubscribe' event
@@ -179,7 +179,7 @@ class NewsletterMembersTable extends Table
                 'data' => $data,
                 'options' => $options
             ]);
-            $this->eventManager()->dispatch($event);
+            $this->getEventManager()->dispatch($event);
         }
 
         // Update entity
@@ -203,7 +203,7 @@ class NewsletterMembersTable extends Table
                 'data' => $data,
                 'options' => $options
             ]);
-            $this->eventManager()->dispatch($event);
+            $this->getEventManager()->dispatch($event);
         }
 
         return $member;
@@ -240,7 +240,7 @@ class NewsletterMembersTable extends Table
                 'member' => $member,
                 'options' => $options
             ]);
-            $this->eventManager()->dispatch($event);
+            $this->getEventManager()->dispatch($event);
         }
 
         // Update entity
@@ -256,7 +256,7 @@ class NewsletterMembersTable extends Table
                 'member' => $member,
                 'options' => $options
             ]);
-            $this->eventManager()->dispatch($event);
+            $this->getEventManager()->dispatch($event);
         }
 
         return $member;
@@ -293,7 +293,7 @@ class NewsletterMembersTable extends Table
                 'data' => $data,
                 'options' => $options
             ]);
-            $this->eventManager()->dispatch($event);
+            $this->getEventManager()->dispatch($event);
         }
 
         if (!$this->save($member)) {
@@ -307,7 +307,7 @@ class NewsletterMembersTable extends Table
                 'data' => $data,
                 'options' => $options
             ]);
-            $this->eventManager()->dispatch($event);
+            $this->getEventManager()->dispatch($event);
         }
 
         return $member;

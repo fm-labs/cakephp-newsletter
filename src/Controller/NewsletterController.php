@@ -35,7 +35,7 @@ class NewsletterController extends AppController
         if ($this->request->is(['post', 'put'])) {
             $email = $this->request->data('email');
             $member = $this->NewsletterMembers->subscribeMember($email, $this->request->data, ['events' => true, 'source' => 'form']);
-            if ($member && !$member->errors() && $member->id) {
+            if ($member && !$member->getErrors() && $member->id) {
                 $this->Flash->success(__d('newsletter', 'Newsletter signup was successful!'));
                 $success = true;
             } else {
@@ -54,7 +54,7 @@ class NewsletterController extends AppController
         if ($this->request->is(['post', 'put'])) {
             $email = $this->request->data('email');
             $member = $this->NewsletterMembers->unsubscribeMember($email, ['events' => true, 'source' => 'form']);
-            if ($member && !$member->errors()) {
+            if ($member && !$member->getErrors()) {
                 $this->Flash->success(__d('newsletter', 'Unsubscribe was successful!'));
                 $success = true;
             } else {
