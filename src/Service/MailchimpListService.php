@@ -72,7 +72,7 @@ class MailchimpListService implements EventListenerInterface
      */
     public function mailchimpEvent(MailchimpWebhookEvent $event)
     {
-        Log::info("Mailchimp: Event: " . $event->name(), ['newsletter']);
+        Log::info("Mailchimp: Event: " . $event->getName(), ['newsletter']);
     }
 
     /**
@@ -93,7 +93,7 @@ class MailchimpListService implements EventListenerInterface
                 throw new \RuntimeException("Subscribe failed");
             }
         } catch (\Exception $ex) {
-            Log::info("Mailchimp: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
+            Log::info("Mailchimp: EventHandler failed: " . $event->getName() . ":" . $ex->getMessage(), ['newsletter']);
         }
     }
 
@@ -112,7 +112,7 @@ class MailchimpListService implements EventListenerInterface
                 throw new \RuntimeException("Unsubscribe failed");
             }
         } catch (\Exception $ex) {
-            Log::info("Mailchimp: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
+            Log::info("Mailchimp: EventHandler failed: " . $event->getName() . ":" . $ex->getMessage(), ['newsletter']);
         }
     }
 
@@ -132,7 +132,7 @@ class MailchimpListService implements EventListenerInterface
                 throw new \RuntimeException("Update profile failed");
             }
         } catch (\Exception $ex) {
-            Log::info("Mailchimp: EventHandler failed: " . $event->name() . ":" . $ex->getMessage(), ['newsletter']);
+            Log::info("Mailchimp: EventHandler failed: " . $event->getName() . ":" . $ex->getMessage(), ['newsletter']);
         }
     }
 

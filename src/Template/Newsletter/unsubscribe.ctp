@@ -3,7 +3,7 @@
     <h1><?= __d('newsletter', 'Unsubscribe Newsletter') ?></h1>
 
     <?= $this->Form->create($form); ?>
-    <?= $this->Form->input('email', [
+    <?= $this->Form->control('email', [
         'type' => 'email'
     ]); ?>
     <br />

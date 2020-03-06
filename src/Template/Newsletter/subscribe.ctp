@@ -3,23 +3,23 @@
     <h1><?= __d('newsletter', 'Newsletter Signup Form') ?></h1>
 
     <?= $this->Form->create($form); ?>
-    <?= $this->Form->input('greeting', [
+    <?= $this->Form->control('greeting', [
         'type' => 'select',
         'options' => ['mr' => __d('newsletter', 'Mr.'), 'ms' => __d('newsletter', 'Ms.'), 'comp' => __d('newsletter', 'Company')],
         'label' => __d('newsletter', 'Greeting')
     ]) ?>
-    <?= $this->Form->input('title', [
+    <?= $this->Form->control('title', [
         'label' => __d('newsletter', 'Title')
     ]); ?>
 
-    <?= $this->Form->input('first_name', [
+    <?= $this->Form->control('first_name', [
         'label' => __d('newsletter', 'First name')
     ]); ?>
 
-    <?= $this->Form->input('name', [
+    <?= $this->Form->control('name', [
         'label' => __d('newsletter', 'Last name')
     ]); ?>
-    <?= $this->Form->input('email', [
+    <?= $this->Form->control('email', [
         'type' => 'email'
     ]); ?>
     <br />

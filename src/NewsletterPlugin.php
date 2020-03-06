@@ -68,7 +68,7 @@ class NewsletterPlugin extends BasePlugin implements EventListenerInterface
             EventManager::instance()->on(new NewsletterMailerService());
         }
 
-        if (Configure::read('Newsletter.Mailchimp.enabled') == true && Plugin::loaded('Mailchimp')) {
+        if (Configure::read('Newsletter.Mailchimp.enabled') == true && Plugin::isLoaded('Mailchimp')) {
             EventManager::instance()->on(new MailchimpService());
         }
     }

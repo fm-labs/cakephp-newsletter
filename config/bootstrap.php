@@ -4,8 +4,8 @@ use Cake\Log\Log;
 use Cake\Mailer\Email;
 
 // Newsletter log config
-if (!Log::config('newsletter')) {
-    Log::config('newsletter', [
+if (!Log::getConfig('newsletter')) {
+    Log::setConfig('newsletter', [
         'className' => 'Cake\Log\Engine\FileLog',
         'path' => LOGS,
         'file' => 'newsletter',
@@ -15,8 +15,8 @@ if (!Log::config('newsletter')) {
 }
 
 // Newsletter Email config
-//if (!Email::config('newsletter_owner_notify')) {
-//    Email::config('newsletter_owner_notify', [
+//if (!Email::getConfig('newsletter_owner_notify')) {
+//    Email::setConfig('newsletter_owner_notify', [
 //        'transport' => 'default',
 //        //'from' => 'notify@localhost',
 //        //'to' => '', // <-- INSERT OWNER EMAIL HERE
@@ -24,8 +24,8 @@ if (!Log::config('newsletter')) {
 //    ]);
 //}
 //
-//if (!Email::config('newsletter_user_notify')) {
-//    Email::config('newsletter_user_notify', [
+//if (!Email::getConfig('newsletter_user_notify')) {
+//    Email::setConfig('newsletter_user_notify', [
 //        'transport' => 'default',
 //        //'from' => 'notify@localhost',
 //        'subject' => 'Newsletter Notification'

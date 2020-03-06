@@ -336,7 +336,7 @@ class NewsletterMembersTable extends Table
      */
     public function mailchimp()
     {
-        if (!Plugin::loaded('Mailchimp')) {
+        if (!Plugin::isLoaded('Mailchimp')) {
             throw new MissingPluginException(['plugin' => 'Mailchimp']);
         }
 

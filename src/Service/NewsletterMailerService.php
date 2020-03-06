@@ -33,7 +33,7 @@ class NewsletterMailerService implements EventListenerInterface
      */
     public function afterSubscribe(Event $event)
     {
-        $member = $event->data['member'];
+        $member = $event->getData('member');
 
         $logMsg = "NewsletterMailerService::afterSubscribe: " . $member->email . " - ";
         Log::info(sprintf(
@@ -61,7 +61,7 @@ class NewsletterMailerService implements EventListenerInterface
      */
     public function afterUnsubscribe(Event $event)
     {
-        $member = $event->data['member'];
+        $member = $event->getData('member');
 
         $logMsg = "NewsletterMailerService::afterUnsubscribe: " . $member->email . " - ";
         Log::info(sprintf(
