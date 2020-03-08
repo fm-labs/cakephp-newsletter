@@ -131,7 +131,7 @@ class NewsletterMembersTable extends Table
     {
         return $this->find('all', $options)
             ->where([
-                'email' => $email
+                'email' => $email,
             ])
             ->first();
     }
@@ -160,7 +160,7 @@ class NewsletterMembersTable extends Table
         if (!$member) {
             $member = $this->newEntity([
                 'email' => $email,
-                'email_verified' => !$options['optIn']
+                'email_verified' => !$options['optIn'],
             ]);
             $isNew = true;
             //debug($member->getErrors());
@@ -177,7 +177,7 @@ class NewsletterMembersTable extends Table
                 'new' => $isNew,
                 'member' => $member,
                 'data' => $data,
-                'options' => $options
+                'options' => $options,
             ]);
             $this->getEventManager()->dispatch($event);
         }
@@ -201,7 +201,7 @@ class NewsletterMembersTable extends Table
                 'new' => $isNew,
                 'member' => $member,
                 'data' => $data,
-                'options' => $options
+                'options' => $options,
             ]);
             $this->getEventManager()->dispatch($event);
         }
@@ -238,7 +238,7 @@ class NewsletterMembersTable extends Table
         if ($options['events'] && in_array('before', $options['events'])) {
             $event = new Event('Newsletter.Model.Member.beforeUnsubscribe', $this, [
                 'member' => $member,
-                'options' => $options
+                'options' => $options,
             ]);
             $this->getEventManager()->dispatch($event);
         }
@@ -254,7 +254,7 @@ class NewsletterMembersTable extends Table
         if ($options['events'] && in_array('after', $options['events'])) {
             $event = new Event('Newsletter.Model.Member.afterUnsubscribe', $this, [
                 'member' => $member,
-                'options' => $options
+                'options' => $options,
             ]);
             $this->getEventManager()->dispatch($event);
         }
@@ -291,7 +291,7 @@ class NewsletterMembersTable extends Table
             $event = new Event('Newsletter.Model.Member.beforeUpdate', $this, [
                 'member' => $member,
                 'data' => $data,
-                'options' => $options
+                'options' => $options,
             ]);
             $this->getEventManager()->dispatch($event);
         }
@@ -305,7 +305,7 @@ class NewsletterMembersTable extends Table
             $event = new Event('Newsletter.Model.Member.afterUpdate', $this, [
                 'member' => $member,
                 'data' => $data,
-                'options' => $options
+                'options' => $options,
             ]);
             $this->getEventManager()->dispatch($event);
         }
@@ -319,7 +319,7 @@ class NewsletterMembersTable extends Table
             self::STATUS_UNSUBSCRIBED => __d('newsletter', 'Unsubscribed'),
             self::STATUS_SUBSCRIBED => __d('newsletter', 'Subscribed'),
             self::STATUS_CLEANED => __d('newsletter', 'Cleaned'),
-            self::STATUS_PENDING => __d('newsletter', 'Pending')
+            self::STATUS_PENDING => __d('newsletter', 'Pending'),
         ];
     }
 
@@ -327,7 +327,7 @@ class NewsletterMembersTable extends Table
     {
         return [
             'html' => 'Html',
-            'text' => 'Text'
+            'text' => 'Text',
         ];
     }
 
@@ -381,7 +381,7 @@ class NewsletterMembersTable extends Table
             'newsletter_subscribers_total_count' => 0,
             'newsletter_subscribers_today_count' => 0,
             'newsletter_subscribers_week_count' => 0,
-            'newsletter_subscribers_month_count' => 0
+            'newsletter_subscribers_month_count' => 0,
         ];
 
         $stats['newsletter_subscribers_total_count'] = $this->find()->count();

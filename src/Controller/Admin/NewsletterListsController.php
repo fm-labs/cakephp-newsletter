@@ -15,7 +15,7 @@ class NewsletterListsController extends AppController
      * @var array
      */
     public $paginate = [
-        'order' => ['NewsletterLists.title' => 'ASC']
+        'order' => ['NewsletterLists.title' => 'ASC'],
     ];
 
     /**
@@ -26,7 +26,7 @@ class NewsletterListsController extends AppController
         'view' => 'Backend.View',
         'add' => 'Backend.Add',
         'edit' => 'Backend.Edit',
-        'delete' => 'Backend.Delete'
+        'delete' => 'Backend.Delete',
     ];
 
     /**

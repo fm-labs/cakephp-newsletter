@@ -10,7 +10,7 @@ if (!Log::getConfig('newsletter')) {
         'path' => LOGS,
         'file' => 'newsletter',
         //'levels' => ['notice', 'info', 'debug'],
-        'scopes' => ['newsletter']
+        'scopes' => ['newsletter'],
     ]);
 }
 

@@ -12,6 +12,6 @@ return [
         'memberUnsubscribe' => [
             'subject' => 'Unsubscribe confirmation',
             'template' => 'Newsletter.member_unsubscribe',
-        ]
+        ],
     ],
 ];

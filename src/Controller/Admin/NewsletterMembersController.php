@@ -17,7 +17,7 @@ class NewsletterMembersController extends AppController
      */
     public $paginate = [
         'limit' => 100,
-        'order' => ['NewsletterMembers.id' => 'DESC']
+        'order' => ['NewsletterMembers.id' => 'DESC'],
     ];
 
     /**
@@ -28,7 +28,7 @@ class NewsletterMembersController extends AppController
         'view' => 'Backend.View',
         'add' => 'Backend.Add',
         'edit' => 'Backend.Edit',
-        'delete' => 'Backend.Delete'
+        'delete' => 'Backend.Delete',
     ];
 
     public function beforeFilter(Event $event)
@@ -99,9 +99,9 @@ class NewsletterMembersController extends AppController
         $this->set(compact('member', 'mailerActions'));
     }
 
-    /**
-     * @return array
-     */
+/**
+ * @return array
+ */
 //    public function implementedEvents()
 //    {
 //        return [

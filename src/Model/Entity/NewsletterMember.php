@@ -41,7 +41,7 @@ class NewsletterMember extends Entity
 
     protected $_virtual = [
         'name',
-        'display_name'
+        'display_name',
     ];
 
     protected function _getName()

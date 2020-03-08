@@ -98,7 +98,7 @@ class NewsletterListsTable extends Table
         }
 
         $client = new MailchimpApiClient([
-            'api_key' => $list->mailchimp_apikey
+            'api_key' => $list->mailchimp_apikey,
         ]);
 
         return $client;

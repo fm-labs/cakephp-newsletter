@@ -187,7 +187,7 @@ class MailchimpListService implements EventListenerInterface
             'merges.FNAME' => 'first_name',
             'merges.LNAME' => 'last_name',
             'merges.ADDRESS' => 'address',
-            'merges.PHONE' => 'phone'
+            'merges.PHONE' => 'phone',
         ];
 
         $data = [];

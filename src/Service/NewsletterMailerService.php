@@ -23,7 +23,7 @@ class NewsletterMailerService implements EventListenerInterface
     {
         return [
             'Newsletter.Model.Member.afterSubscribe' => 'afterSubscribe',
-            'Newsletter.Model.Member.afterUnsubscribe' => 'afterUnsubscribe'
+            'Newsletter.Model.Member.afterUnsubscribe' => 'afterUnsubscribe',
         ];
     }
 

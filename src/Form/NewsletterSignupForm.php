@@ -28,7 +28,7 @@ class NewsletterSignupForm extends Form
     {
         return $validator->add('name', 'notblank', [
             'rule' => 'notBlank',
-            'message' => 'A name is required'
+            'message' => 'A name is required',
         ])->add('email', 'format', [
             'rule' => 'email',
             'message' => 'A valid email address is required',
