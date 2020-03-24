@@ -25,7 +25,7 @@ class NewsletterController extends AppController
             $this->Auth->allow(['subscribe', 'unsubscribe']);
         }
 
-        $this->viewBuilder()->layout(Configure::read('Newsletter.layout'));
+        $this->viewBuilder()->setLayout(Configure::read('Newsletter.layout'));
     }
 
     public function subscribe()
@@ -34,7 +34,7 @@ class NewsletterController extends AppController
         $member = $this->NewsletterMembers->newEntity();
         if ($this->request->is(['post', 'put'])) {
             $email = $this->request->data('email');
-            $member = $this->NewsletterMembers->subscribeMember($email, $this->request->data, ['events' => true, 'source' => 'form']);
+            $member = $this->NewsletterMembers->subscribeMember($email, $this->request->getData(), ['events' => true, 'source' => 'form']);
             if ($member && !$member->getErrors() && $member->id) {
                 $this->Flash->success(__d('newsletter', 'Newsletter signup was successful!'));
                 $success = true;
@@ -71,7 +71,7 @@ class NewsletterController extends AppController
 //        $success = false;
 //        $form = new NewsletterSubscribeForm();
 //        if ($this->request->is(['post', 'put'])) {
-//            if ($form->execute($this->request->data())) {
+//            if ($form->execute($this->request->getData())) {
 //                $this->Flash->success(__d('newsletter', 'Newsletter signup was successful!'));
 //                $success = true;
 //            } else {
@@ -87,7 +87,7 @@ class NewsletterController extends AppController
 //        $success = false;
 //        $form = new NewsletterUnsubscribeForm();
 //        if ($this->request->is(['post', 'put'])) {
-//            if ($form->execute($this->request->data())) {
+//            if ($form->execute($this->request->getData())) {
 //                $this->Flash->success(__d('newsletter', 'Unsubscribe was successful!'));
 //                $success = true;
 //            } else {

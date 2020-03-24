@@ -24,7 +24,7 @@ class NewsletterSubscribeForm extends Form
     protected function _buildSchema(Schema $schema)
     {
         foreach ($this->NewsletterMembers->getSchema()->columns() as $column) {
-            $schema->addField($column, $this->NewsletterMembers->getSchema()->column($column));
+            $schema->addField($column, $this->NewsletterMembers->getSchema()->getColumn($column));
         }
 
         return $schema;
