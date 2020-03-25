@@ -33,7 +33,7 @@ class MailchimpService implements EventListenerInterface
     /**
      * @return array
      */
-    public function implementedEvents()
+    public function implementedEvents(): array
     {
         return [
             'Newsletter.Model.Member.afterSubscribe' => 'afterSubscribe',

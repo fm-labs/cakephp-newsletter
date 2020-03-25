@@ -2,10 +2,9 @@
 
 namespace Newsletter;
 
-use Banana\Application;
 use Banana\Plugin\BasePlugin;
 use Cake\Core\Configure;
-use Cake\Core\Plugin;
+use Cake\Core\PluginApplicationInterface;
 use Cake\Event\Event;
 use Cake\Event\EventListenerInterface;
 use Cake\Event\EventManager;
@@ -17,11 +16,9 @@ use Newsletter\Service\NewsletterMailerService;
  *
  * @package Newsletter
  */
-class NewsletterPlugin extends BasePlugin implements EventListenerInterface
+class Plugin extends BasePlugin implements EventListenerInterface
 {
-    protected $_name = "Newsletter";
-
-    public function implementedEvents()
+    public function implementedEvents(): array
     {
         return [
             'Backend.Menu.build.admin_primary'    => ['callable' => 'buildBackendMenu', 'priority' => 80 ],
@@ -53,7 +50,7 @@ class NewsletterPlugin extends BasePlugin implements EventListenerInterface
         ]);
     }
 
-    public function bootstrap(Application $app)
+    public function bootstrap(PluginApplicationInterface $app): void
     {
         parent::bootstrap($app);
 

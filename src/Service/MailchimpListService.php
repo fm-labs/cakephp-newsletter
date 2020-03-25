@@ -35,7 +35,7 @@ class MailchimpListService implements EventListenerInterface
     /**
      * @return array
      */
-    public function implementedEvents()
+    public function implementedEvents(): array
     {
         return [
             'Newsletter.List.Member.beforeSubscribe' => 'beforeSubscribe',

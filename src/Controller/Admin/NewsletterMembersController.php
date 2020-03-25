@@ -31,7 +31,7 @@ class NewsletterMembersController extends AppController
         'delete' => 'Backend.Delete',
     ];
 
-    public function beforeFilter(Event $event)
+    public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
 
@@ -102,7 +102,7 @@ class NewsletterMembersController extends AppController
 /**
  * @return array
  */
-//    public function implementedEvents()
+//    public function implementedEvents(): array
 //    {
 //        return [
 //            'Backend.Action.Index.getRowActions' => function(Event $event) {

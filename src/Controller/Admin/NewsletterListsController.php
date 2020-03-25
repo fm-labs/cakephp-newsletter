@@ -73,7 +73,7 @@ class NewsletterListsController extends AppController
     /**
      * @return array
      */
-    public function implementedEvents()
+    public function implementedEvents(): array
     {
         $events = parent::implementedEvents();
         $events['Backend.Action.Index.getRowActions'] = function (Event $event) {
