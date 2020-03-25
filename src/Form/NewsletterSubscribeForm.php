@@ -21,7 +21,7 @@ class NewsletterSubscribeForm extends Form
         $this->NewsletterMembers = TableRegistry::getTableLocator()->get('Newsletter.NewsletterMembers');
     }
 
-    protected function _buildSchema(Schema $schema)
+    protected function _buildSchema(Schema $schema): Schema
     {
         foreach ($this->NewsletterMembers->getSchema()->columns() as $column) {
             $schema->addField($column, $this->NewsletterMembers->getSchema()->getColumn($column));
@@ -37,7 +37,7 @@ class NewsletterSubscribeForm extends Form
         return $validator;
     }
 
-    protected function _execute(array $data)
+    protected function _execute(array $data): bool
     {
         $email = $data['email'];
         $member = $this->NewsletterMembers->subscribeMember($email, $data, ['events' => true, 'source' => 'form']);

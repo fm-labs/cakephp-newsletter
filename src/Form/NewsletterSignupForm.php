@@ -14,7 +14,7 @@ use Cake\Validation\Validator;
 class NewsletterSignupForm extends Form
 {
 
-    protected function _buildSchema(Schema $schema)
+    protected function _buildSchema(Schema $schema): Schema
     {
         return $schema
             ->addField('greeting', 'string')
@@ -35,7 +35,7 @@ class NewsletterSignupForm extends Form
         ]);
     }
 
-    protected function _execute(array $data)
+    protected function _execute(array $data): bool
     {
 
         $NewsletterMembers = TableRegistry::getTableLocator()->get('Newsletter.NewsletterMembers');

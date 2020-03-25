@@ -19,7 +19,7 @@ class NewsletterUnsubscribeForm extends Form
         $this->NewsletterMembers = TableRegistry::getTableLocator()->get('Newsletter.NewsletterMembers');
     }
 
-    protected function _buildSchema(Schema $schema)
+    protected function _buildSchema(Schema $schema): Schema
     {
         $schema->addField('email', $this->NewsletterMembers->getSchema()->getColumn('email'));
 
@@ -33,7 +33,7 @@ class NewsletterUnsubscribeForm extends Form
         return $validator;
     }
 
-    protected function _execute(array $data)
+    protected function _execute(array $data): bool
     {
         $email = $data['email'];
         $member = $this->NewsletterMembers->unsubscribeMember($email, ['events' => true, 'source' => 'form']);
