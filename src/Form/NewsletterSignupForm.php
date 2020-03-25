@@ -58,9 +58,9 @@ class NewsletterSignupForm extends Form
         // Email to User
         try {
             $email = new Email('newsletter');
-            $email->subject("Neue Newsletter Anmeldung");
-            $email->template('Newsletter.owner_member_signup_complete');
-            $email->viewVars($member);
+            $email->setSubject("Neue Newsletter Anmeldung");
+            $email->viewBuilder()->setTemplate('Newsletter.owner_member_signup_complete');
+            $email->setViewVars($member);
             $sent = $email->send();
             debug($sent);
             Log::info("Email: Owner Newsletter Signup notification has been sent", ['mail', 'newsletter']);
@@ -71,10 +71,10 @@ class NewsletterSignupForm extends Form
         // Email to User
         try {
             $email = new Email('default');
-            $email->subject("Newsletter Anmeldung");
-            $email->to($member['email']);
-            $email->template('Newsletter.user_member_signup_complete');
-            $email->viewVars($member);
+            $email->setSubject("Newsletter Anmeldung");
+            $email->setTo($member['email']);
+            $email->viewBuilder()->setTemplate('Newsletter.user_member_signup_complete');
+            $email->setViewVars($member);
             $sent = $email->send();
             debug($sent);
             Log::info("Email: User Newsletter Signup notification has been sent", ['mail', 'newsletter']);

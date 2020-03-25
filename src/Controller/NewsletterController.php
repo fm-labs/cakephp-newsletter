@@ -33,7 +33,7 @@ class NewsletterController extends AppController
         $success = false;
         $member = $this->NewsletterMembers->newEntity();
         if ($this->request->is(['post', 'put'])) {
-            $email = $this->request->data('email');
+            $email = $this->request->getData('email');
             $member = $this->NewsletterMembers->subscribeMember($email, $this->request->getData(), ['events' => true, 'source' => 'form']);
             if ($member && !$member->getErrors() && $member->id) {
                 $this->Flash->success(__d('newsletter', 'Newsletter signup was successful!'));
@@ -52,7 +52,7 @@ class NewsletterController extends AppController
         $success = false;
         $member = $this->NewsletterMembers->newEntity();
         if ($this->request->is(['post', 'put'])) {
-            $email = $this->request->data('email');
+            $email = $this->request->getData('email');
             $member = $this->NewsletterMembers->unsubscribeMember($email, ['events' => true, 'source' => 'form']);
             if ($member && !$member->getErrors()) {
                 $this->Flash->success(__d('newsletter', 'Unsubscribe was successful!'));

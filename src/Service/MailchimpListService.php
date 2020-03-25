@@ -84,7 +84,7 @@ class MailchimpListService implements EventListenerInterface
             Log::info("Mailchimp: Subscriber: " . $event->getListId() . ":" . $event->getEmail(), ['newsletter']);
 
             $list = $this->_findMailchimpList($event->getListId());
-            $data = $this->_extractMemberData($event->data());
+            $data = $this->_extractMemberData($event->getData());
 
             // we can set optIn to FALSE here, because when we receive the "subscribe" event from mailchimp,
             // it is granted that the user already opted-in, if configured so in Mailchimp List settings
@@ -125,7 +125,7 @@ class MailchimpListService implements EventListenerInterface
             Log::info("Mailchimp: ProfileUpdate: " . $event->getListId() . ":" . $event->getEmail(), ['newsletter']);
 
             $list = $this->_findMailchimpList($event->getListId());
-            $data = $this->_extractMemberData($event->data());
+            $data = $this->_extractMemberData($event->getData());
 
             $options = [ 'events' => true, 'source' => 'mailchimp' ];
             if (!$this->NewsletterLists->updateMember($list, $event->getEmail(), $data, $options)) {

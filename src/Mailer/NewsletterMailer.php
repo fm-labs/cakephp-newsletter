@@ -33,7 +33,7 @@ class NewsletterMailer extends Mailer
         parent::__construct($email);
 
         if (Configure::check('Newsletter.Mailer.profile')) {
-            $this->profile(Configure::read('Newsletter.Mailer.profile'));
+            $this->setProfile(Configure::read('Newsletter.Mailer.profile'));
         }
     }
 
@@ -45,9 +45,9 @@ class NewsletterMailer extends Mailer
     {
         $this
             ->to($member->email)
-            ->subject(__d('newsletter', "Please confirm your newsletter subscription"))
-            ->template('Newsletter.member_pending')
-            ->profile(__FUNCTION__);
+            ->setSubject(__d('newsletter', "Please confirm your newsletter subscription"))
+            ->setTemplate('Newsletter.member_pending')
+            ->setProfile(__FUNCTION__);
 
         $this->_setMember($member);
     }
@@ -60,9 +60,9 @@ class NewsletterMailer extends Mailer
     {
         $this
             ->to($member->email)
-            ->subject(__d('newsletter', "Your newsletter subscription was successful"))
-            ->template('Newsletter.member_subscribe')
-            ->profile(__FUNCTION__);
+            ->setSubject(__d('newsletter', "Your newsletter subscription was successful"))
+            ->setTemplate('Newsletter.member_subscribe')
+            ->setProfile(__FUNCTION__);
 
         $this->_setMember($member);
     }
@@ -75,9 +75,9 @@ class NewsletterMailer extends Mailer
     {
         $this
             ->to($member->email)
-            ->subject(__d('newsletter', "Unsubscribe confirmation"))
-            ->template('Newsletter.member_unsubscribe')
-            ->profile(__FUNCTION__);
+            ->setSubject(__d('newsletter', "Unsubscribe confirmation"))
+            ->setTemplate('Newsletter.member_unsubscribe')
+            ->setProfile(__FUNCTION__);
 
         $this->_setMember($member);
     }
@@ -86,17 +86,13 @@ class NewsletterMailer extends Mailer
      * Overloading profile() method
      * to override profile from configuration
      */
-    public function profile($profile = null)
+    public function setProfile($profile)
     {
-        if ($profile === null) {
-            return $this->_email->profile();
-        }
-
         if (is_string($profile) /*&& Configure::check('Newsletter.Email.' . $profile)*/) {
             $profile = (array)Configure::read('Newsletter.Email.' . $profile);
         }
 
-        $this->_email->profile($profile);
+        $this->_email->setProfile($profile);
 
         return $this;
     }

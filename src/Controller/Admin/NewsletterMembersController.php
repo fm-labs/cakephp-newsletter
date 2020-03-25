@@ -88,7 +88,7 @@ class NewsletterMembersController extends AppController
         ];
         $member = $this->NewsletterMembers->get($id);
         if ($this->request->is(['post'])) {
-            if ((new NewsletterMailer())->send($this->request->data('mailer_action'), [$member])) {
+            if ((new NewsletterMailer())->send($this->request->getData('mailer_action'), [$member])) {
                 $this->Flash->success("Email sent");
             } else {
                 $this->Flash->error("Operation failed");

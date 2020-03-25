@@ -22,7 +22,7 @@ class NewsletterOwnerMailer extends Mailer
         parent::__construct($email);
 
         $profile = (Configure::read('Newsletter.Email.ownerProfile')) ?: 'owner';
-        $this->_email->profile($profile);
+        $this->_email->setProfile($profile);
     }
 
     /**
@@ -32,8 +32,8 @@ class NewsletterOwnerMailer extends Mailer
     public function subscriptionNotify(NewsletterMember $subscriber)
     {
         $this
-            ->subject("Neue Newsletter Anmeldung") // @todo i18n
-            ->template('Newsletter.Newsletter/owner_signup_notify')
+            ->setSubject("Neue Newsletter Anmeldung") // @todo i18n
+            ->setTemplate('Newsletter.Newsletter/owner_signup_notify')
             ->set(compact('subscriber'));
     }
 }

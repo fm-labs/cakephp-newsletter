@@ -2,18 +2,13 @@
 
 namespace Newsletter;
 
-use Backend\Backend;
-use Backend\BackendPluginInterface;
 use Banana\Application;
 use Banana\Plugin\BasePlugin;
-use Banana\Plugin\PluginInterface;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Event\Event;
 use Cake\Event\EventListenerInterface;
 use Cake\Event\EventManager;
-use Cake\Http\MiddlewareQueue;
-use Cake\Routing\RouteBuilder;
 use Newsletter\Service\MailchimpService;
 use Newsletter\Service\NewsletterMailerService;
 

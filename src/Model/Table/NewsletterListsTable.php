@@ -57,21 +57,21 @@ class NewsletterListsTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
-            ->allowEmpty('title');
+            ->allowEmptyString('title');
 
         $validator
             ->boolean('mailchimp_enabled')
             ->requirePresence('mailchimp_enabled', 'create')
-            ->notEmpty('mailchimp_enabled');
+            ->notEmptyString('mailchimp_enabled');
 
         $validator
-            ->allowEmpty('mailchimp_listid');
+            ->allowEmptyString('mailchimp_listid');
 
         $validator
-            ->allowEmpty('mailchimp_apikey');
+            ->allowEmptyString('mailchimp_apikey');
 
         return $validator;
     }

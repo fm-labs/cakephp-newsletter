@@ -56,42 +56,42 @@ class NewsletterMembersTable extends Table
     {
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         //$validator
         //    ->add('newsletter_list_id', 'valid', ['rule' => 'numeric'])
-        //    ->notEmpty('newsletter_list_id');
+        //    ->notEmptyString('newsletter_list_id');
 
         $validator
             ->add('email', 'email_check', ['rule' => ['email', true], 'message' => __d('newsletter', 'Provide a valid email address'), 'on' => 'create'])
             ->add('email', 'email_nocheck', ['rule' => ['email', false], 'message' => __d('newsletter', 'Provide a valid email address'), 'on' => 'update'])
             ->requirePresence('email', 'create')
-            ->notEmpty('email');
+            ->notEmptyString('email');
 
         $validator
             ->add('email_verified', 'valid', ['rule' => 'boolean'])
-            ->allowEmpty('email_verified');
+            ->allowEmptyString('email_verified');
 
         $validator
-            ->allowEmpty('email_format');
+            ->allowEmptyString('email_format');
 
         $validator
-            ->allowEmpty('greeting');
+            ->allowEmptyString('greeting');
 
         $validator
-            ->allowEmpty('title');
+            ->allowEmptyString('title');
 
         $validator
-            ->allowEmpty('first_name');
+            ->allowEmptyString('first_name');
 
         $validator
-            ->allowEmpty('last_name');
+            ->allowEmptyString('last_name');
 
         $validator
-            ->allowEmpty('status');
+            ->allowEmptyString('status');
 
         $validator
-            ->allowEmpty('locale');
+            ->allowEmptyString('locale');
 
         return $validator;
     }
