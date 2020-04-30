@@ -2,7 +2,7 @@
 
 namespace Newsletter;
 
-use Banana\Plugin\BasePlugin;
+use Cupcake\Plugin\BasePlugin;
 use Cake\Core\Configure;
 use Cake\Core\PluginApplicationInterface;
 use Cake\Event\Event;
@@ -21,7 +21,7 @@ class Plugin extends BasePlugin implements EventListenerInterface
     public function implementedEvents(): array
     {
         return [
-            'Backend.Menu.build.admin_primary'    => ['callable' => 'buildBackendMenu', 'priority' => 80 ],
+            'Admin.Menu.build.admin_primary'    => ['callable' => 'buildAdminMenu', 'priority' => 80 ],
         ];
     }
 
@@ -29,7 +29,7 @@ class Plugin extends BasePlugin implements EventListenerInterface
      * @param Event $event
      * @return void
      */
-    public function buildBackendMenu(Event $event)
+    public function buildAdminMenu(Event $event)
     {
         $event->getSubject()->addItem([
             'title' => 'Newsletter',

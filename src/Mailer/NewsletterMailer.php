@@ -25,7 +25,7 @@ class NewsletterMailer extends Mailer
      */
     public function __construct(Email $email = null)
     {
-        $localizedEmailClass = '\\Banana\\Mailer\\LocalizedEmail';
+        $localizedEmailClass = '\\Cupcake\\Mailer\\LocalizedEmail';
         if ($email === null && class_exists($localizedEmailClass)) {
             $email = new $localizedEmailClass();
         }

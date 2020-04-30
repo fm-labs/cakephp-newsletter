@@ -12,13 +12,13 @@ use Cake\View\Cell;
 use Newsletter\Model\Table\NewsletterMembersTable;
 
 /**
- * Class NewsletterMembersBackendPanelCell
+ * Class NewsletterMembersAdminPanelCell
  *
  * @package Newsletter\View\Cell
  *
  * @property NewsletterMembersTable $NewsletterMembers
  */
-class NewsletterMembersBackendPanelCell extends Cell
+class NewsletterMembersAdminPanelCell extends Cell
 {
     /**
      * List of valid options that can be passed into this

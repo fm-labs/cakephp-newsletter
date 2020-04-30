@@ -1,6 +1,6 @@
 <div class="panel panel-default">
     <div class="panel-heading">Latest Newsletter Signups</div>
-    <?= $this->cell('Backend.DataTable', [[
+    <?= $this->cell('Admin.DataTable', [[
         'paginate' => false,
         'model' => 'Newsletter.NewsletterMembers',
         'data' => $NewsletterMembers,

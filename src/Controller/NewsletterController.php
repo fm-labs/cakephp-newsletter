@@ -31,7 +31,7 @@ class NewsletterController extends AppController
     public function subscribe()
     {
         $success = false;
-        $member = $this->NewsletterMembers->newEntity();
+        $member = $this->NewsletterMembers->newEmptyEntity();
         if ($this->request->is(['post', 'put'])) {
             $email = $this->request->getData('email');
             $member = $this->NewsletterMembers->subscribeMember($email, $this->request->getData(), ['events' => true, 'source' => 'form']);
@@ -50,7 +50,7 @@ class NewsletterController extends AppController
     public function unsubscribe()
     {
         $success = false;
-        $member = $this->NewsletterMembers->newEntity();
+        $member = $this->NewsletterMembers->newEmptyEntity();
         if ($this->request->is(['post', 'put'])) {
             $email = $this->request->getData('email');
             $member = $this->NewsletterMembers->unsubscribeMember($email, ['events' => true, 'source' => 'form']);

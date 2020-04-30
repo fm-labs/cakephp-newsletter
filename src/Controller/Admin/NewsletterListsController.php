@@ -22,11 +22,11 @@ class NewsletterListsController extends AppController
      * @var array
      */
     public $actions = [
-        'index' => 'Backend.Index',
-        'view' => 'Backend.View',
-        'add' => 'Backend.Add',
-        'edit' => 'Backend.Edit',
-        'delete' => 'Backend.Delete',
+        'index' => 'Admin.Index',
+        'view' => 'Admin.View',
+        'add' => 'Admin.Add',
+        'edit' => 'Admin.Edit',
+        'delete' => 'Admin.Delete',
     ];
 
     /**
@@ -76,7 +76,7 @@ class NewsletterListsController extends AppController
     public function implementedEvents(): array
     {
         $events = parent::implementedEvents();
-        $events['Backend.Action.Index.getRowActions'] = function (Event $event) {
+        $events['Admin.Action.Index.getRowActions'] = function (Event $event) {
             $event->result[] = [__d('newsletter', 'Mailchimp Hello'), ['action' => 'mailchimpHello', ':id']];
         };
 
