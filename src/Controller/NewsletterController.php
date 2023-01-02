@@ -22,7 +22,7 @@ class NewsletterController extends AppController
         parent::beforeFilter($event);
 
         if ($this->components()->has('Auth')) {
-            $this->Auth->allow(['subscribe', 'unsubscribe']);
+            $this->Authentication->allowUnauthenticated(['subscribe', 'unsubscribe']);
         }
 
         $this->viewBuilder()->setLayout(Configure::read('Newsletter.layout'));
