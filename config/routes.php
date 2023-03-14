@@ -1,7 +1,6 @@
 <?php
-use Cake\Routing\Router;
-
-Router::plugin(
+/** @var \Cake\Routing\RouteBuilder $routes */
+$routes->plugin(
     'Newsletter',
     ['path' => '/newsletter'],
     function ($routes) {

@@ -31,23 +31,23 @@ class Plugin extends BasePlugin implements EventListenerInterface
      */
     public function buildAdminMenu(Event $event)
     {
-        $event->getSubject()->addItem([
-            'title' => 'Newsletter',
-            'url' => ['plugin' => 'Newsletter', 'controller' => 'NewsletterMembers', 'action' => 'index'],
-            'data-icon' => 'newspaper-o',
-//            'children' => [
-//                'newsletter_lists' => [
-//                    'title' => 'Newsletter Lists',
-//                    'url' => ['plugin' => 'Newsletter', 'controller' => 'NewsletterLists', 'action' => 'index'],
-//                    'data-icon' => 'list',
-//                ],
-//                'newsletter_members' => [
-//                    'title' => 'Newsletter Members',
-//                    'url' => ['plugin' => 'Newsletter', 'controller' => 'NewsletterMembers', 'action' => 'index'],
-//                    'data-icon' => 'users',
-//                ]
-//            ]
-        ]);
+//        $event->getSubject()->addItem([
+//            'title' => 'Newsletter',
+//            'url' => ['plugin' => 'Newsletter', 'controller' => 'NewsletterMembers', 'action' => 'index'],
+//            'data-icon' => 'newspaper-o',
+////            'children' => [
+////                'newsletter_lists' => [
+////                    'title' => 'Newsletter Lists',
+////                    'url' => ['plugin' => 'Newsletter', 'controller' => 'NewsletterLists', 'action' => 'index'],
+////                    'data-icon' => 'list',
+////                ],
+////                'newsletter_members' => [
+////                    'title' => 'Newsletter Members',
+////                    'url' => ['plugin' => 'Newsletter', 'controller' => 'NewsletterMembers', 'action' => 'index'],
+////                    'data-icon' => 'users',
+////                ]
+////            ]
+//        ]);
     }
 
     public function bootstrap(PluginApplicationInterface $app): void
